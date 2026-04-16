@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: traffic-graph-unsupervised
+Version: 0.1.0
+Summary: Skeleton repository for unsupervised malicious traffic detection based on flow interaction graphs.
+Requires-Python: >=3.10
+Requires-Dist: pytest>=8.0
+Requires-Dist: ruff>=0.4.0
+Requires-Dist: black>=24.0.0
+Requires-Dist: networkx>=3.2
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: pandas>=2.0
+Requires-Dist: numpy>=1.24
+Requires-Dist: scikit-learn>=1.3
+Provides-Extra: gae
+Requires-Dist: torch>=2.1; extra == "gae"

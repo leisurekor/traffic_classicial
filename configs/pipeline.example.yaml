@@ -1,0 +1,71 @@
+pipeline:
+  run_name: bootstrap-smoke
+  seed: 42
+
+data:
+  input_path: data/flows.csv
+  format: csv
+
+preprocessing:
+  window_size: 60
+  short_flow_thresholds:
+    pkt_count_lt: 5
+    byte_count_lt: 1024
+
+graph:
+  time_window_seconds: 60
+  directed: true
+  association_edges:
+    enable_same_src_ip: false
+    enable_same_dst_subnet: false
+    dst_subnet_prefix: 24
+
+features:
+  normalization:
+    enabled: true
+    method: standard
+    exclude_node_fields:
+      - endpoint_type
+      - port
+      - proto
+    exclude_edge_fields:
+      - edge_type
+      - is_aggregated
+
+model:
+  name: gae
+  device: cpu
+  hidden_dim: 64
+  latent_dim: 32
+  num_layers: 2
+  dropout: 0.1
+  use_edge_features: true
+  reconstruct_edge_features: true
+
+training:
+  epochs: 10
+  learning_rate: 0.001
+  weight_decay: 0.0
+  batch_size: 2
+  validation_split_ratio: 0.2
+  early_stopping_patience: 5
+  checkpoint_dir: artifacts/checkpoints
+  shuffle: true
+  seed: 42
+  smoke_graph_limit: 4
+
+evaluation:
+  score_reduction: mean
+  anomaly_threshold: 0.5
+  evaluation_label_field: label
+  checkpoint_dir: artifacts/checkpoints
+  checkpoint_tag: best
+
+alerting:
+  anomaly_threshold: 0.5
+  medium_multiplier: 1.5
+  high_multiplier: 2.0
+
+output:
+  directory: artifacts
+  save_intermediate: false

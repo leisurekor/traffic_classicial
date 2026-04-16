@@ -1,0 +1,2 @@
+[console_scripts]
+traffic-graph-pipeline = traffic_graph.cli:main

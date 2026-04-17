@@ -249,6 +249,18 @@ def transform_graph(
     )
     normalized_node_matrix = preprocessor.transform_node_matrix(node_matrix)
     normalized_edge_matrix = preprocessor.transform_edge_matrix(edge_matrix)
+    normalized_node_matrix = np.nan_to_num(
+        np.asarray(normalized_node_matrix, dtype=float),
+        nan=0.0,
+        posinf=0.0,
+        neginf=0.0,
+    )
+    normalized_edge_matrix = np.nan_to_num(
+        np.asarray(normalized_edge_matrix, dtype=float),
+        nan=0.0,
+        posinf=0.0,
+        neginf=0.0,
+    )
 
     node_ids = feature_view.node_features.ordered_node_ids
     edge_ids = feature_view.edge_features.ordered_edge_ids

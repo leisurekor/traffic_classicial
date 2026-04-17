@@ -1,0 +1,22 @@
+2026-04-17 20:00:10,682 INFO Running CSV experiment CICIoT_csv_merge_a seed=42 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv
+2026-04-17 20:00:53,934 INFO Running CSV experiment CICIoT_csv_merge_a seed=43 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv
+2026-04-17 20:01:36,992 INFO Running CSV experiment CICIoT_csv_merge_a seed=44 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv
+2026-04-17 20:02:20,174 INFO Running CSV experiment CICIoT_csv_merge_b seed=42 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv
+2026-04-17 20:02:26,145 INFO Running CSV experiment CICIoT_csv_merge_b seed=43 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv
+2026-04-17 20:02:32,234 INFO Running CSV experiment CICIoT_csv_merge_b seed=44 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv
+2026-04-17 20:02:40,860 INFO Running CSV experiment CICIoT_csv_merge_all seed=42 path=/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv
+2026-04-17 20:03:30,298 INFO Running CSV experiment CICIoT_csv_merge_all seed=43 path=/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv
+2026-04-17 20:04:19,913 INFO Running CSV experiment CICIoT_csv_merge_all seed=44 path=/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv
+2026-04-17 22:41:52,253 INFO Running CSV experiment CICIoT_csv_merge_a seed=42 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv
+2026-04-17 22:42:35,726 INFO Running CSV experiment CICIoT_csv_merge_a seed=43 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv
+2026-04-17 22:43:18,906 INFO Running CSV experiment CICIoT_csv_merge_a seed=44 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv
+2026-04-17 22:44:02,212 INFO Running CSV experiment CICIoT_csv_merge_b seed=42 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv
+2026-04-17 22:44:08,323 INFO Running CSV experiment CICIoT_csv_merge_b seed=43 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv
+2026-04-17 22:44:14,268 INFO Running CSV experiment CICIoT_csv_merge_b seed=44 path=/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv
+2026-04-17 22:44:22,623 INFO Running CSV experiment CICIoT_csv_merge_all seed=42 path=/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv
+2026-04-17 22:45:11,928 INFO Running CSV experiment CICIoT_csv_merge_all seed=43 path=/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv
+2026-04-17 22:46:01,383 INFO Running CSV experiment CICIoT_csv_merge_all seed=44 path=/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv
+2026-04-17 22:46:51,326 INFO Running CTU13 mixed-flow experiment CTU13_public_mixedflow_clean_48_49_52_merge seed=42 mode=clean scenarios=48,49,52
+2026-04-17 22:49:45,486 INFO Running CTU13 mixed-flow experiment CTU13_public_mixedflow_clean_48_49_52_merge seed=43 mode=clean scenarios=48,49,52
+2026-04-17 22:52:42,190 INFO Running CTU13 mixed-flow experiment CTU13_public_mixedflow_clean_48_49_52_merge seed=44 mode=clean scenarios=48,49,52
+2026-04-17 22:55:32,931 INFO Running CTU13 mixed-flow experiment CTU13_public_mixedflow_full_48_49_52_merge seed=42 mode=full scenarios=48,49,52

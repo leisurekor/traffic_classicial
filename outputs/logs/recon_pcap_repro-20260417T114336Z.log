@@ -1,0 +1,19 @@
+2026-04-17 19:43:36,818 INFO Starting PCAP experiment for dataset=recon_pcap_repro
+2026-04-17 19:43:36,818 INFO use_nuisance_aware=False
+2026-04-17 19:43:43,511 INFO Counts: packets=1000 flows=192 graphs=2 benign_graphs=0 malicious_graphs=2
+2026-04-17 19:43:43,511 INFO Training epochs=1
+2026-04-17 19:43:43,511 INFO PCAP graph experiment summary:
+Run id: recon_pcap_repro
+Timestamp: 20260417T114336Z
+Mode: smoke
+Backend: fallback
+Inputs: benign_files=0, malicious_files=1
+Counts: packets=1000, flows=192, graphs=2, benign_graphs=0, malicious_graphs=2
+Graph config: window_size=30, use_association_edges=True, use_graph_structural_features=True, graph_score_reduction=hybrid_max_rank_flow_node_max
+Graph score quantiles: count=2, median=0.458145, q95=0.870476
+Exported directory: outputs/runs/pcap/recon_pcap_repro/20260417T114336Z
+Split counts: train=0, val=0, benign_test=0, malicious_test=0, smoke=2
+Notes:
+  - Smoke validation mode: labels are not required and the chain is validated end to end.
+  - PyTorch is unavailable; used the deterministic feature-norm smoke fallback.
+  - Graph score reduction: hybrid_max_rank_flow_node_max

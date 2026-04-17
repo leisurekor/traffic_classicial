@@ -1,0 +1,9 @@
+2026-04-17 22:44:14,268 INFO Starting CSV experiment for dataset=CICIoT2023
+2026-04-17 22:44:14,268 INFO use_nuisance_aware=False
+2026-04-17 22:44:14,344 INFO Rows: original=20000 clean=20000 dropped=0
+2026-04-17 22:44:14,344 INFO NaN/Inf cleaning: nan_replaced=0 inf_replaced=0
+2026-04-17 22:44:14,344 INFO Split train: rows=292 benign=292 malicious=0
+2026-04-17 22:44:14,344 INFO Split val: rows=9854 benign=97 malicious=9757
+2026-04-17 22:44:14,344 INFO Split test: rows=9854 benign=97 malicious=9757
+2026-04-17 22:44:20,108 INFO Training epochs=0
+2026-04-17 22:44:20,108 INFO Best metrics: roc_auc=0.8530095759956635 pr_auc=0.9982880305066733 precision=0.9994703389830508 recall=0.5801988316080763 f1=0.7341936320601776

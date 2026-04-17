@@ -1,0 +1,469 @@
+{
+  "artifact_paths": {
+    "alert_records_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/alerts/alert_records.smoke.csv",
+    "alert_records_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/alerts/alert_records.smoke.jsonl",
+    "attack_scores_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/attack_scores.csv",
+    "attack_scores_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/attack_scores.jsonl",
+    "comparison_summary_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/comparison_summary.csv",
+    "comparison_summary_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/comparison_summary.json",
+    "edge_scores_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/edge_scores.smoke.csv",
+    "edge_scores_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/edge_scores.smoke.jsonl",
+    "flow_scores_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/flow_scores.smoke.csv",
+    "flow_scores_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/flow_scores.smoke.jsonl",
+    "graph_scores_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/graph_scores.smoke.csv",
+    "graph_scores_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/graph_scores.smoke.jsonl",
+    "graph_summary_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/graph_summary.csv",
+    "graph_summary_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/graph_summary.json",
+    "malicious_source_metrics_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/malicious_source_metrics.csv",
+    "malicious_source_metrics_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/malicious_source_metrics.json",
+    "manifest_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/manifest.json",
+    "metrics_summary_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/metrics/metrics_summary.smoke.csv",
+    "metrics_summary_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/metrics/metrics_summary.smoke.json",
+    "metrics_summary_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/metrics/metrics_summary.smoke.jsonl",
+    "metrics_summary_root_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/metrics_summary.json",
+    "node_scores_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/node_scores.smoke.csv",
+    "node_scores_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/scores/node_scores.smoke.jsonl",
+    "overall_scores_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/overall_scores.csv",
+    "overall_scores_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/overall_scores.jsonl",
+    "pcap_experiment_config_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/pcap_experiment_config.json",
+    "pcap_experiment_summary_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/pcap_experiment_summary.json",
+    "per_attack_metrics_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/per_attack_metrics.csv",
+    "score_quantiles_root_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/score_quantiles.json",
+    "source_score_summary_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/source_score_summary.csv",
+    "source_score_summary_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/source_score_summary.json",
+    "split_score_summary_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/split_score_summary.csv",
+    "split_score_summary_json": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/split_score_summary.json",
+    "train_graph_scores_csv": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/train_graph_scores.csv",
+    "train_graph_scores_jsonl": "outputs/runs/pcap/recon_pcap_repro/20260417T114357Z/train_graph_scores.jsonl"
+  },
+  "backend": "fallback",
+  "config": {
+    "batch_size": 1,
+    "benign_inputs": [],
+    "benign_train_ratio": 0.7,
+    "binary_label_mapping": {},
+    "dataset_name": "recon_pcap_repro",
+    "epochs": 1,
+    "graph_score_reduction": "hybrid_max_rank_flow_node_max",
+    "heldout_attack_types": [
+      "Recon",
+      "DDoS",
+      "Mirai",
+      "Web-based"
+    ],
+    "input_mode": "pcap",
+    "input_path": null,
+    "label_column": null,
+    "learning_rate": 0.001,
+    "malicious_inputs": [
+      "artifacts/cic_iot2023/Recon-HostDiscovery.pcap"
+    ],
+    "max_components": 10,
+    "output_dir": "outputs",
+    "packet_limit": 1000,
+    "packet_sampling_mode": "random_window",
+    "random_seed": 42,
+    "run_name": null,
+    "test_ratio": 0.2,
+    "threshold_percentile": 90.0,
+    "train_ratio": 0.6,
+    "train_validation_ratio": 0.25,
+    "use_nuisance_aware": false,
+    "val_ratio": 0.2,
+    "weight_decay": 0.0,
+    "window_size": 30
+  },
+  "mode": "pcap",
+  "notes": [
+    "Smoke validation mode: labels are not required and the chain is validated end to end.",
+    "PyTorch is unavailable; used the deterministic feature-norm smoke fallback.",
+    "Graph score reduction: hybrid_max_rank_flow_node_max"
+  ],
+  "row_counts": {
+    "alert_records": 839,
+    "attack_scores_csv": 0,
+    "attack_scores_jsonl": 0,
+    "comparison_summary_csv": 1,
+    "edge_scores": 460,
+    "flow_scores": 153,
+    "graph_scores": 2,
+    "graph_summary_csv": 2,
+    "malicious_source_metrics_csv": 0,
+    "metrics_rows": 168,
+    "node_scores": 224,
+    "overall_scores_csv": 2,
+    "overall_scores_jsonl": 2,
+    "per_attack_metrics_csv": 0,
+    "source_score_summary_csv": 1,
+    "split_score_summary_csv": 2,
+    "train_graph_scores_csv": 1,
+    "train_graph_scores_jsonl": 1
+  },
+  "summary": {
+    "alert_summary": {
+      "level_counts": {
+        "high": 838,
+        "low": 1,
+        "medium": 0
+      },
+      "positive_count": 839,
+      "positive_level_counts": {
+        "high": 838,
+        "low": 1,
+        "medium": 0
+      },
+      "positive_rate": 1.0,
+      "positive_scope_counts": {
+        "edge": 460,
+        "flow": 153,
+        "graph": 2,
+        "node": 224
+      },
+      "scope_counts": {
+        "edge": 460,
+        "flow": 153,
+        "graph": 2,
+        "node": 224
+      },
+      "scope_level_counts": {
+        "edge": {
+          "high": 460,
+          "low": 0,
+          "medium": 0
+        },
+        "flow": {
+          "high": 153,
+          "low": 0,
+          "medium": 0
+        },
+        "graph": {
+          "high": 1,
+          "low": 1,
+          "medium": 0
+        },
+        "node": {
+          "high": 224,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "total_count": 839
+    },
+    "anomaly_threshold": 0.0,
+    "backend": "fallback",
+    "benign_graph_count": 0,
+    "benign_inputs": [],
+    "comparison_summary": {
+      "backend": "fallback",
+      "benign_graph_total": 0,
+      "benign_source_count": 0,
+      "benign_test_graph_count": 0,
+      "benign_train_graph_count": 0,
+      "experiment_label": null,
+      "graph_score_reduction": "hybrid_max_rank_flow_node_max",
+      "malicious_source_count": 1,
+      "malicious_test_graph_count": 0,
+      "mode": "smoke",
+      "overall_f1": null,
+      "overall_false_positive_rate": null,
+      "overall_metrics_availability": "unavailable_smoke_mode",
+      "overall_pr_auc": null,
+      "overall_precision": null,
+      "overall_recall": null,
+      "overall_roc_auc": null,
+      "run_id": "recon_pcap_repro",
+      "scorer_role": "default_candidate",
+      "scorer_type": "deterministic_fallback",
+      "threshold": 0.0,
+      "threshold_percentile": 90.0,
+      "timestamp": "20260417T114357Z",
+      "worst_malicious_f1": null,
+      "worst_malicious_metric_basis": null,
+      "worst_malicious_pr_auc": null,
+      "worst_malicious_recall": null,
+      "worst_malicious_source_id": null,
+      "worst_malicious_source_name": null
+    },
+    "edge_score_quantiles": {
+      "count": 460,
+      "max": 252.89752268427713,
+      "mean": 9.836923718379252,
+      "median": 4.1737963278943955,
+      "min": 3.952276806107902,
+      "q25": 4.1737963278943955,
+      "q75": 5.547443796024355,
+      "q90": 13.532218241992952,
+      "q95": 47.399463779052304,
+      "std": 19.531585774616886
+    },
+    "evaluation_graph_count": 2,
+    "experiment_label": null,
+    "flow_score_quantiles": {
+      "count": 153,
+      "max": 252.89752268427713,
+      "mean": 21.20019240386194,
+      "median": 7.56062075022768,
+      "min": 3.952276806107902,
+      "q25": 5.6215936720187765,
+      "q75": 39.20685896663853,
+      "q90": 48.92198262271153,
+      "q95": 56.743447852967655,
+      "std": 30.878250714235314
+    },
+    "graph_score_quantiles": {
+      "count": 2,
+      "max": 0.9162907318741551,
+      "mean": 0.45814536593707755,
+      "median": 0.45814536593707755,
+      "min": 0.0,
+      "q25": 0.22907268296853878,
+      "q75": 0.6872180489056163,
+      "q90": 0.8246616586867396,
+      "q95": 0.8704761952804473,
+      "std": 0.45814536593707755
+    },
+    "graph_score_reduction": "hybrid_max_rank_flow_node_max",
+    "idle_timeout_seconds": 60.0,
+    "malicious_graph_count": 2,
+    "malicious_inputs": [
+      "artifacts/cic_iot2023/Recon-HostDiscovery.pcap"
+    ],
+    "malicious_source_metrics": [],
+    "mode": "smoke",
+    "node_score_quantiles": {
+      "count": 224,
+      "max": 50.6704642141575,
+      "mean": 11.220406747682343,
+      "median": 5.841741275625996,
+      "min": 1.441193773617782,
+      "q25": 2.2102541841642487,
+      "q75": 20.881055228507353,
+      "q90": 30.779035331289055,
+      "q95": 31.109517740450638,
+      "std": 11.099434753106888
+    },
+    "notes": [
+      "Smoke validation mode: labels are not required and the chain is validated end to end.",
+      "PyTorch is unavailable; used the deterministic feature-norm smoke fallback.",
+      "Graph score reduction: hybrid_max_rank_flow_node_max"
+    ],
+    "overall_metrics": {
+      "f1": null,
+      "false_negative": 0,
+      "false_positive": 0,
+      "false_positive_rate": null,
+      "negative_count": 0,
+      "positive_count": 0,
+      "pr_auc": null,
+      "precision": null,
+      "recall": null,
+      "roc_auc": null,
+      "support": 0,
+      "threshold": 0.0,
+      "true_negative": 0,
+      "true_positive": 0
+    },
+    "packet_limit": 1000,
+    "packet_sampling_mode": "random_window",
+    "parsed_packets": 843,
+    "run_id": "recon_pcap_repro",
+    "skipped_packets": 157,
+    "smoke_graph_limit": 16,
+    "source_counts": {
+      "parsed_packets": 843,
+      "protocols": [
+        "tcp",
+        "udp"
+      ],
+      "skip_reason_counts": {
+        "non_ipv4": 126,
+        "unsupported_l4_protocol": 31
+      },
+      "skipped_packets": 157,
+      "source_count": 1,
+      "total_flows": 192,
+      "total_graphs": 2,
+      "total_packets": 1000
+    },
+    "source_score_summaries": [
+      {
+        "availability": "available",
+        "benign_test_graph_count": 0,
+        "binary_label": 1,
+        "graph_count": 2,
+        "malicious_test_graph_count": 0,
+        "raw_label": "Recon-HostDiscovery",
+        "score_count": 2,
+        "score_max": 0.9162907318741551,
+        "score_mean": 0.45814536593707755,
+        "score_median": 0.45814536593707755,
+        "score_p90": 0.8246616586867396,
+        "score_p95": 0.8704761952804473,
+        "score_scope": "graph",
+        "scored_graph_count": 2,
+        "smoke_graph_count": 2,
+        "source_id": "malicious-00-Recon-HostDiscovery",
+        "source_name": "Recon-HostDiscovery",
+        "source_path": "artifacts/cic_iot2023/Recon-HostDiscovery.pcap",
+        "source_role": "malicious",
+        "train_graph_count": 0,
+        "val_graph_count": 0
+      }
+    ],
+    "source_summaries": [
+      {
+        "assignment_counts": {
+          "smoke": 2
+        },
+        "binary_label": 1,
+        "graph_count": 2,
+        "graph_ids_by_split": {
+          "smoke": [
+            "malicious:malicious-00-Recon-HostDiscovery:0:0",
+            "malicious:malicious-00-Recon-HostDiscovery:1:1"
+          ]
+        },
+        "parse_summary": {
+          "byte_order": "<",
+          "capture_name": "Recon-HostDiscovery",
+          "flow_dataset_summary": {
+            "average_duration_seconds": 5.773791885416667,
+            "earliest_start": "2022-11-14T23:49:06.697709+00:00",
+            "flow_count": 192,
+            "latest_end": "2022-11-14T23:49:39.304229+00:00",
+            "protocols": [
+              "tcp",
+              "udp"
+            ]
+          },
+          "idle_timeout_seconds": 60.0,
+          "linktype": 1,
+          "notes": [
+            "Packet start offset of 669362 applied before parsing sample window.",
+            "Packet limit of 1000 reached; parsing stopped early."
+          ],
+          "packet_limit": 1000,
+          "packet_start_offset": 669362,
+          "parsed_packets": 843,
+          "skipped_packets": 157,
+          "skipped_reason_counts": {
+            "non_ipv4": 126,
+            "unsupported_l4_protocol": 31
+          },
+          "snaplen": 262144,
+          "source_path": "artifacts/cic_iot2023/Recon-HostDiscovery.pcap",
+          "timestamp_resolution": "microsecond",
+          "total_flows": 192,
+          "total_packets": 1000,
+          "version_major": 2,
+          "version_minor": 4
+        },
+        "raw_label": "Recon-HostDiscovery",
+        "score_summary": {
+          "count": 2,
+          "max": 0.9162907318741551,
+          "mean": 0.45814536593707755,
+          "median": 0.45814536593707755,
+          "min": 0.0,
+          "q25": 0.22907268296853878,
+          "q75": 0.6872180489056163,
+          "q90": 0.8246616586867396,
+          "q95": 0.8704761952804473,
+          "std": 0.45814536593707755
+        },
+        "score_summary_availability": "available",
+        "scored_graph_count": 2,
+        "source_id": "malicious-00-Recon-HostDiscovery",
+        "source_name": "Recon-HostDiscovery",
+        "source_path": "artifacts/cic_iot2023/Recon-HostDiscovery.pcap",
+        "source_role": "malicious",
+        "window_statistics": [
+          {
+            "index": 0,
+            "logical_flow_count": 132,
+            "long_flow_count": 25,
+            "raw_flow_count": 163,
+            "short_flow_count": 138,
+            "window_end": "2022-11-14 23:49:30+00:00",
+            "window_start": "2022-11-14 23:49:00+00:00"
+          },
+          {
+            "index": 1,
+            "logical_flow_count": 21,
+            "long_flow_count": 3,
+            "raw_flow_count": 29,
+            "short_flow_count": 26,
+            "window_end": "2022-11-14 23:50:00+00:00",
+            "window_start": "2022-11-14 23:49:30+00:00"
+          }
+        ]
+      }
+    ],
+    "split_graph_counts": {
+      "benign_test": 0,
+      "benign_total": 0,
+      "evaluation_total": 2,
+      "malicious_test": 0,
+      "malicious_total": 2,
+      "smoke": 2,
+      "train": 0,
+      "val": 0
+    },
+    "split_graph_ids": {
+      "smoke": [
+        "malicious:malicious-00-Recon-HostDiscovery:0:0",
+        "malicious:malicious-00-Recon-HostDiscovery:1:1"
+      ]
+    },
+    "split_score_summaries": [
+      {
+        "availability": "available",
+        "graph_count": 1,
+        "score_count": 1,
+        "score_max": 0.0,
+        "score_mean": 0.0,
+        "score_median": 0.0,
+        "score_p90": 0.0,
+        "score_p95": 0.0,
+        "score_scope": "graph",
+        "split_name": "smoke_train_reference"
+      },
+      {
+        "availability": "available",
+        "graph_count": 2,
+        "score_count": 2,
+        "score_max": 0.9162907318741551,
+        "score_mean": 0.45814536593707755,
+        "score_median": 0.45814536593707755,
+        "score_p90": 0.8246616586867396,
+        "score_p95": 0.8704761952804473,
+        "score_scope": "graph",
+        "split_name": "smoke_evaluation"
+      }
+    ],
+    "threshold_percentile": 90.0,
+    "timestamp": "20260417T114357Z",
+    "total_flows": 192,
+    "total_graphs": 2,
+    "total_packets": 1000,
+    "train_graph_count": 1,
+    "train_graph_reference_count": 1,
+    "train_graph_reference_split_name": "smoke_train_reference",
+    "train_graph_score_quantiles": {
+      "count": 1,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "q25": 0.0,
+      "q75": 0.0,
+      "q90": 0.0,
+      "q95": 0.0,
+      "std": 0.0
+    },
+    "use_association_edges": true,
+    "use_graph_structural_features": true,
+    "val_graph_count": 1,
+    "window_size": 30
+  }
+}

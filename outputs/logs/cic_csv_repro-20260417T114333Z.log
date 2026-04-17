@@ -1,0 +1,9 @@
+2026-04-17 19:43:33,046 INFO Starting CSV experiment for dataset=cic_csv_repro
+2026-04-17 19:43:33,046 INFO use_nuisance_aware=False
+2026-04-17 19:43:33,055 INFO Rows: original=18 clean=18 dropped=0
+2026-04-17 19:43:33,055 INFO NaN/Inf cleaning: nan_replaced=0 inf_replaced=0
+2026-04-17 19:43:33,055 INFO Split train: rows=7 benign=7 malicious=0
+2026-04-17 19:43:33,055 INFO Split val: rows=5 benign=2 malicious=3
+2026-04-17 19:43:33,055 INFO Split test: rows=6 benign=3 malicious=3
+2026-04-17 19:43:33,092 INFO Training epochs=0
+2026-04-17 19:43:33,092 INFO Best metrics: roc_auc=1.0 pr_auc=1.0 precision=1.0 recall=1.0 f1=1.0

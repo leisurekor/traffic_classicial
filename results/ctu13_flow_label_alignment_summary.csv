@@ -1,0 +1,4 @@
+scenario_id,total_flows,benign_count,malicious_count,unknown_count,unaligned_count,alignment_rate
+48,14074,119,3,13952,26,0.9981526218559045
+49,16140,244,4,15892,22,0.998636926889715
+52,26811,94,14,26703,101,0.9962328894856589

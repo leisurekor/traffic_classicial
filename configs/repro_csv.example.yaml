@@ -1,0 +1,14 @@
+dataset_name: cic_csv_repro
+input_mode: csv
+use_nuisance_aware: false
+input_path: artifacts/cic_iot2023/Merged01.csv
+label_column: Label
+binary_label_mapping:
+  BENIGN: 0
+train_ratio: 0.6
+val_ratio: 0.2
+test_ratio: 0.2
+random_seed: 42
+threshold_percentile: 95.0
+max_components: 10
+output_dir: outputs

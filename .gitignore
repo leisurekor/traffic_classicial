@@ -2,6 +2,8 @@
 .ruff_cache/
 __pycache__/
 .venv/
+.venv-bench/
+.conda-bench/
 build/
 dist/
 artifacts/
@@ -22,3 +24,18 @@ results/
 data/ciciot2023/pcap/**/*.pcap
 data/ciciot2023/pcap/**/*.pcapng
 data/ciciot2023/pcap/**/*.cap
+outputs/runs/
+outputs/checkpoints/
+
+!results/
+!results/**
+!outputs/summary/
+!outputs/summary/**
+!outputs/metrics/
+!outputs/metrics/**
+!outputs/figures/
+!outputs/figures/**
+!outputs/logs/
+!outputs/logs/**
+!outputs/data_inventory/
+!outputs/data_inventory/**

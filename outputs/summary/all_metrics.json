@@ -1,0 +1,375 @@
+[
+  {
+    "experiment_name": "CICIoT_csv_merge_a",
+    "dataset_name": "CICIoT2023",
+    "input_mode": "csv",
+    "status": "success",
+    "use_nuisance_aware": false,
+    "binary_label_mapping": "benign=0 malicious=1",
+    "split_strategy": "row-level stratified random split (current stable code path; file/time-block split unavailable)",
+    "source_paths": [
+      "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv"
+    ],
+    "seed_count_completed": 3,
+    "seed_count_requested": 3,
+    "seed_runs": [
+      {
+        "experiment_name": "CICIoT_csv_merge_a",
+        "seed": 42,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_a_seed42-20260417T120010Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_a_seed42-20260417T120010Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/Merged01/20260417T120011Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_a_seed42-20260417T120010Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_a_seed42-20260417T120010Z.log",
+        "metrics": {
+          "accuracy": 0.9755365300083316,
+          "precision": 0.9995097893579726,
+          "recall": 0.975781306649264,
+          "f1": 0.9875030270119539,
+          "macro_f1": 0.7055958451472629,
+          "balanced_accuracy": 0.9628527170575607,
+          "roc_auc": 0.9849528001426895,
+          "pr_auc": 0.9998559091485709,
+          "true_negative": 626.0,
+          "false_positive": 33.0,
+          "false_negative": 1670.0,
+          "true_positive": 67285.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv"
+        ],
+        "error": null
+      },
+      {
+        "experiment_name": "CICIoT_csv_merge_a",
+        "seed": 43,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_a_seed43-20260417T120053Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_a_seed43-20260417T120053Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/Merged01/20260417T120054Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_a_seed43-20260417T120053Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_a_seed43-20260417T120053Z.log",
+        "metrics": {
+          "accuracy": 0.9762260464849024,
+          "precision": 0.9995842983550092,
+          "recall": 0.9764049017475165,
+          "f1": 0.9878586467709869,
+          "macro_f1": 0.7102474584557712,
+          "balanced_accuracy": 0.966958141313819,
+          "roc_auc": 0.9853453061303533,
+          "pr_auc": 0.9998597147031039,
+          "true_negative": 631.0,
+          "false_positive": 28.0,
+          "false_negative": 1627.0,
+          "true_positive": 67328.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv"
+        ],
+        "error": null
+      },
+      {
+        "experiment_name": "CICIoT_csv_merge_a",
+        "seed": 44,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_a_seed44-20260417T120136Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_a_seed44-20260417T120136Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/Merged01/20260417T120137Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_a_seed44-20260417T120136Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_a_seed44-20260417T120136Z.log",
+        "metrics": {
+          "accuracy": 0.9751630419168558,
+          "precision": 0.9994799096528768,
+          "recall": 0.9754332535711696,
+          "f1": 0.987310184879377,
+          "macro_f1": 0.7032620793392519,
+          "balanced_accuracy": 0.9611612398356606,
+          "roc_auc": 0.9839252997462993,
+          "pr_auc": 0.9998460425119025,
+          "true_negative": 624.0,
+          "false_positive": 35.0,
+          "false_negative": 1694.0,
+          "true_positive": 67261.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv"
+        ],
+        "error": null
+      }
+    ],
+    "notes": [],
+    "accuracy_mean": 0.9756418728033633,
+    "accuracy_std": 0.0004403161790280682,
+    "precision_mean": 0.9995246657886195,
+    "precision_std": 4.389556868154168e-05,
+    "recall_mean": 0.9758731539893167,
+    "recall_std": 0.00040195521728638627,
+    "f1_mean": 0.9875572862207727,
+    "f1_std": 0.00022717197295336295,
+    "macro_f1_mean": 0.706368460980762,
+    "macro_f1_std": 0.002903627819355886,
+    "balanced_accuracy_mean": 0.9636573660690134,
+    "balanced_accuracy_std": 0.0024340106423476654,
+    "roc_auc_mean": 0.9847411353397808,
+    "roc_auc_std": 0.0005987242126841439,
+    "pr_auc_mean": 0.9998538887878592,
+    "pr_auc_std": 5.761573634371544e-06,
+    "confusion_matrix_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_a_confusion.png",
+    "roc_curve_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_a_roc.png",
+    "pr_curve_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_a_pr.png"
+  },
+  {
+    "experiment_name": "CICIoT_csv_merge_b",
+    "dataset_name": "CICIoT2023",
+    "input_mode": "csv",
+    "status": "success",
+    "use_nuisance_aware": false,
+    "binary_label_mapping": "benign=0 malicious=1",
+    "split_strategy": "row-level stratified random split (current stable code path; file/time-block split unavailable)",
+    "source_paths": [
+      "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv"
+    ],
+    "seed_count_completed": 3,
+    "seed_count_requested": 3,
+    "seed_runs": [
+      {
+        "experiment_name": "CICIoT_csv_merge_b",
+        "seed": 42,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_b_seed42-20260417T120220Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_b_seed42-20260417T120220Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/Merged01_sample20k/20260417T120220Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_b_seed42-20260417T120220Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_b_seed42-20260417T120220Z.log",
+        "metrics": {
+          "accuracy": 0.5708341790135986,
+          "precision": 0.9992774566473989,
+          "recall": 0.5669775545762017,
+          "f1": 0.7234682534492906,
+          "macro_f1": 0.3827986793860269,
+          "balanced_accuracy": 0.7628702205870699,
+          "roc_auc": 0.8346119994209815,
+          "pr_auc": 0.998036514872326,
+          "true_negative": 93.0,
+          "false_positive": 4.0,
+          "false_negative": 4225.0,
+          "true_positive": 5532.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv"
+        ],
+        "error": null
+      },
+      {
+        "experiment_name": "CICIoT_csv_merge_b",
+        "seed": 43,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_b_seed43-20260417T120226Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_b_seed43-20260417T120226Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/Merged01_sample20k/20260417T120226Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_b_seed43-20260417T120226Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_b_seed43-20260417T120226Z.log",
+        "metrics": {
+          "accuracy": 0.4593058656383195,
+          "precision": 0.9990984899707009,
+          "recall": 0.45434047350620066,
+          "f1": 0.6246301254051008,
+          "macro_f1": 0.32918122157088553,
+          "balanced_accuracy": 0.7065516800520695,
+          "roc_auc": 0.8228002311848011,
+          "pr_auc": 0.9978210777729597,
+          "true_negative": 93.0,
+          "false_positive": 4.0,
+          "false_negative": 5324.0,
+          "true_positive": 4433.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv"
+        ],
+        "error": null
+      },
+      {
+        "experiment_name": "CICIoT_csv_merge_b",
+        "seed": 44,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_b_seed44-20260417T120232Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_b_seed44-20260417T120232Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/Merged01_sample20k/20260417T120232Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_b_seed44-20260417T120232Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_b_seed44-20260417T120232Z.log",
+        "metrics": {
+          "accuracy": 0.5840267911508017,
+          "precision": 0.9994703389830508,
+          "recall": 0.5801988316080763,
+          "f1": 0.7341936320601776,
+          "macro_f1": 0.38902357133683013,
+          "balanced_accuracy": 0.774635498278265,
+          "roc_auc": 0.8530095759956635,
+          "pr_auc": 0.9982880305066733,
+          "true_negative": 94.0,
+          "false_positive": 3.0,
+          "false_negative": 4096.0,
+          "true_positive": 5661.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv"
+        ],
+        "error": null
+      }
+    ],
+    "notes": [],
+    "accuracy_mean": 0.5380556119342399,
+    "accuracy_std": 0.055944336383018815,
+    "precision_mean": 0.9992820952003836,
+    "precision_std": 0.00015184215296756647,
+    "recall_mean": 0.5338389532301595,
+    "recall_std": 0.056472451988581245,
+    "f1_mean": 0.6940973369715229,
+    "f1_std": 0.049315504990467704,
+    "macro_f1_mean": 0.3670011574312475,
+    "macro_f1_std": 0.02686320880946299,
+    "balanced_accuracy_mean": 0.748019132972468,
+    "balanced_accuracy_std": 0.02971270972234879,
+    "roc_auc_mean": 0.8368072688671487,
+    "roc_auc_std": 0.01243021947865636,
+    "pr_auc_mean": 0.998048541050653,
+    "pr_auc_std": 0.00019082223071837385,
+    "confusion_matrix_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_b_confusion.png",
+    "roc_curve_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_b_roc.png",
+    "pr_curve_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_b_pr.png"
+  },
+  {
+    "experiment_name": "CICIoT_csv_merge_all",
+    "dataset_name": "CICIoT2023",
+    "input_mode": "csv",
+    "status": "success",
+    "use_nuisance_aware": false,
+    "binary_label_mapping": "benign=0 malicious=1",
+    "split_strategy": "row-level stratified random split (current stable code path; file/time-block split unavailable)",
+    "source_paths": [
+      "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv",
+      "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv"
+    ],
+    "seed_count_completed": 3,
+    "seed_count_requested": 3,
+    "seed_runs": [
+      {
+        "experiment_name": "CICIoT_csv_merge_all",
+        "seed": 42,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_all_seed42-20260417T120240Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_all_seed42-20260417T120240Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/CICIoT_csv_merge_all/20260417T120241Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_all_seed42-20260417T120240Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_all_seed42-20260417T120240Z.log",
+        "metrics": {
+          "accuracy": 0.975373735340011,
+          "precision": 0.9995314147370066,
+          "recall": 0.9755945726191686,
+          "f1": 0.9874179466243193,
+          "macro_f1": 0.7056606954199017,
+          "balanced_accuracy": 0.9639877625000605,
+          "roc_auc": 0.9844602263102618,
+          "pr_auc": 0.9998504547411633,
+          "true_negative": 720.0,
+          "false_positive": 36.0,
+          "false_negative": 1921.0,
+          "true_positive": 76791.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv"
+        ],
+        "error": null
+      },
+      {
+        "experiment_name": "CICIoT_csv_merge_all",
+        "seed": 43,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_all_seed43-20260417T120330Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_all_seed43-20260417T120330Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/CICIoT_csv_merge_all/20260417T120331Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_all_seed43-20260417T120330Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_all_seed43-20260417T120330Z.log",
+        "metrics": {
+          "accuracy": 0.9751094780288921,
+          "precision": 0.9995573031952293,
+          "recall": 0.9753023681268421,
+          "f1": 0.9872808878943374,
+          "macro_f1": 0.7046281704229139,
+          "balanced_accuracy": 0.9651644115766486,
+          "roc_auc": 0.9841696518982066,
+          "pr_auc": 0.9998476222116148,
+          "true_negative": 722.0,
+          "false_positive": 34.0,
+          "false_negative": 1944.0,
+          "true_positive": 76768.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv"
+        ],
+        "error": null
+      },
+      {
+        "experiment_name": "CICIoT_csv_merge_all",
+        "seed": 44,
+        "status": "success",
+        "run_token": "CICIoT_csv_merge_all_seed44-20260417T120419Z",
+        "metrics_path": "/home/xdo/traffic_classicial/outputs/metrics/CICIoT_csv_merge_all_seed44-20260417T120419Z.json",
+        "export_directory": "/home/xdo/traffic_classicial/outputs/runs/csv/CICIoT_csv_merge_all/20260417T120420Z",
+        "figure_path": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_all_seed44-20260417T120419Z.png",
+        "log_path": "/home/xdo/traffic_classicial/outputs/logs/CICIoT_csv_merge_all_seed44-20260417T120419Z.log",
+        "metrics": {
+          "accuracy": 0.9750088085770373,
+          "precision": 0.9995312377926509,
+          "recall": 0.9752261408679744,
+          "f1": 0.9872291170985789,
+          "macro_f1": 0.7037721767629497,
+          "balanced_accuracy": 0.9638035466244634,
+          "roc_auc": 0.9843953255885363,
+          "pr_auc": 0.9998498221022605,
+          "true_negative": 720.0,
+          "false_positive": 36.0,
+          "false_negative": 1950.0,
+          "true_positive": 76762.0
+        },
+        "pcap_stats": {},
+        "source_paths": [
+          "/home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv"
+        ],
+        "error": null
+      }
+    ],
+    "notes": [
+      "Combined 2 CSV files into /home/xdo/traffic_classicial/outputs/summary/derived_inputs/CICIoT_csv_merge_all.csv before running.",
+      "Only 2 merge CSV files were available, so merge_all used the available subset."
+    ],
+    "accuracy_mean": 0.9751640073153135,
+    "accuracy_std": 0.00015388950124865027,
+    "precision_mean": 0.9995399852416288,
+    "precision_std": 1.2245855489511378e-05,
+    "recall_mean": 0.975374360537995,
+    "recall_std": 0.00015879267252134988,
+    "f1_mean": 0.9873093172057451,
+    "f1_std": 7.96672946621337e-05,
+    "macro_f1_mean": 0.7046870142019218,
+    "macro_f1_std": 0.000772106478909026,
+    "balanced_accuracy_mean": 0.9643185735670574,
+    "balanced_accuracy_std": 0.0006028075016438986,
+    "roc_auc_mean": 0.9843417345990014,
+    "roc_auc_std": 0.00012453210524407762,
+    "pr_auc_mean": 0.9998492996850129,
+    "pr_auc_std": 1.2139455633559062e-06,
+    "confusion_matrix_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_all_confusion.png",
+    "roc_curve_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_all_roc.png",
+    "pr_curve_png": "/home/xdo/traffic_classicial/outputs/figures/CICIoT_csv_merge_all_pr.png"
+  }
+]

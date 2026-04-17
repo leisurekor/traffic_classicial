@@ -1,0 +1,19 @@
+dataset_name: recon_pcap_repro
+input_mode: pcap
+use_nuisance_aware: false
+benign_inputs: []
+malicious_inputs:
+  - artifacts/cic_iot2023/Recon-HostDiscovery.pcap
+random_seed: 42
+output_dir: outputs
+packet_limit: 1000
+window_size: 30
+packet_sampling_mode: random_window
+benign_train_ratio: 0.7
+train_validation_ratio: 0.25
+epochs: 1
+batch_size: 1
+learning_rate: 0.001
+weight_decay: 0.0
+threshold_percentile: 90.0
+graph_score_reduction: hybrid_max_rank_flow_node_max

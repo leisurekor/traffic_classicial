@@ -1,0 +1,9 @@
+scorer_name,scorer_role,attack_type,FPR,F1,recall
+hybrid_max_rank_flow_node_max,default_candidate,browser_hijacking,0.07142857142857142,0.21052631578947367,0.125
+hybrid_decision_tail_balance,experimental,browser_hijacking,0.07142857142857142,0.0,0.0
+hybrid_max_rank_flow_node_max,default_candidate,mitm_arp_spoofing,0.07142857142857142,0.0,0.0
+hybrid_decision_tail_balance,experimental,mitm_arp_spoofing,0.07142857142857142,0.0,0.0
+hybrid_max_rank_flow_node_max,default_candidate,dictionary_bruteforce,0.07142857142857142,0.45454545454545453,0.3125
+hybrid_decision_tail_balance,experimental,dictionary_bruteforce,0.07142857142857142,0.1111111111111111,0.0625
+hybrid_max_rank_flow_node_max,default_candidate,backdoor_malware,0.07142857142857142,0.5217391304347825,0.375
+hybrid_decision_tail_balance,experimental,backdoor_malware,0.07142857142857142,0.0,0.0

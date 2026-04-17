@@ -1,0 +1,4 @@
+scenario_id,packet_start_offset,packet_limit,total_label_flows,label_malicious_flows,loaded_flow_count,aligned_malicious_flows,malicious_flows_after_primary_filter,malicious_flows_after_windowing,malicious_candidate_graphs,final_test_malicious_graphs,major_loss_stage
+48,0,1300000,114077,63,14074,3,3,2,2,2,none
+49,0,1100000,2229455,4307,16140,4,4,3,3,3,none
+52,1843233,1300000,107251,8164,26811,14,14,12,12,12,none

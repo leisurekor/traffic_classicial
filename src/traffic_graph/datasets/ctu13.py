@@ -282,6 +282,130 @@ def save_ctu13_manifest(
     manifest_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
+def infer_local_ctu13_manifest_entry(
+    scenario_id: str,
+    *,
+    raw_root: str | Path,
+) -> CTU13ScenarioManifestEntry | None:
+    """Infer one manifest entry directly from a locally materialized scenario directory."""
+
+    scenario_dir = Path(raw_root) / f"scenario_{scenario_id}"
+    if not scenario_dir.exists():
+        return None
+
+    pcap_path = next(
+        (
+            candidate
+            for candidate in sorted(scenario_dir.glob("*.truncated.pcap"))
+            if candidate.is_file()
+        ),
+        None,
+    )
+    compressed_path = next(
+        (
+            candidate
+            for candidate in sorted(scenario_dir.glob("*.truncated.pcap.bz2"))
+            if candidate.is_file()
+        ),
+        None,
+    )
+    label_path = next(
+        (
+            candidate
+            for candidate in sorted(scenario_dir.glob("*.binetflow.2format"))
+            if candidate.is_file()
+        ),
+        None,
+    )
+    if label_path is None:
+        label_path = next(
+            (
+                candidate
+                for candidate in sorted(scenario_dir.glob("*.binetflow"))
+                if candidate.is_file()
+            ),
+            None,
+        )
+    readme_path = next(
+        (
+            candidate
+            for candidate in sorted(scenario_dir.glob("README*"))
+            if candidate.is_file()
+        ),
+        None,
+    )
+    if pcap_path is None or label_path is None:
+        status = "partial"
+    else:
+        status = "downloaded"
+
+    pcap_name = pcap_path.name if pcap_path is not None else (
+        compressed_path.name[:-4] if compressed_path and compressed_path.name.endswith(".bz2") else None
+    )
+    label_name = label_path.name if label_path is not None else None
+    readme_name = readme_path.name if readme_path is not None else None
+    scenario_name = f"CTU-Malware-Capture-Botnet-{scenario_id}"
+    scenario_url = f"{CTU13_SCENARIO_BASE}{scenario_name}/"
+    return CTU13ScenarioManifestEntry(
+        scenario_id=str(scenario_id),
+        scenario_name=scenario_name,
+        scenario_url=scenario_url,
+        pcap_source_url=urljoin(scenario_url, f"{pcap_name}.bz2") if pcap_name else None,
+        label_source_url=urljoin(scenario_url, label_name) if label_name else None,
+        readme_source_url=urljoin(scenario_url, readme_name) if readme_name else None,
+        pcap_path=pcap_path.as_posix() if pcap_path is not None else None,
+        label_file_path=label_path.as_posix() if label_path is not None else None,
+        readme_path=readme_path.as_posix() if readme_path is not None else None,
+        pcap_compressed_path=compressed_path.as_posix() if compressed_path is not None else None,
+        download_status=status,
+        notes=("inferred from local raw directory",),
+    )
+
+
+def merge_ctu13_manifest_with_local_raw(
+    entries: list[CTU13ScenarioManifestEntry],
+    *,
+    raw_root: str | Path,
+    scenario_ids: list[str] | tuple[str, ...] | None = None,
+) -> list[CTU13ScenarioManifestEntry]:
+    """Backfill manifest entries from local raw directories without clobbering existing data."""
+
+    merged: dict[str, CTU13ScenarioManifestEntry] = {entry.scenario_id: entry for entry in entries}
+    if scenario_ids is None:
+        scenario_dirs = sorted(Path(raw_root).glob("scenario_*"))
+        candidate_ids = [
+            directory.name.split("_", 1)[1]
+            for directory in scenario_dirs
+            if directory.is_dir() and "_" in directory.name
+        ]
+    else:
+        candidate_ids = [str(item) for item in scenario_ids]
+
+    for scenario_id in candidate_ids:
+        inferred = infer_local_ctu13_manifest_entry(scenario_id, raw_root=raw_root)
+        if inferred is None:
+            continue
+        existing = merged.get(scenario_id)
+        if existing is None:
+            merged[scenario_id] = inferred
+            continue
+        merged[scenario_id] = CTU13ScenarioManifestEntry(
+            scenario_id=existing.scenario_id,
+            scenario_name=existing.scenario_name or inferred.scenario_name,
+            scenario_url=existing.scenario_url or inferred.scenario_url,
+            pcap_source_url=existing.pcap_source_url or inferred.pcap_source_url,
+            label_source_url=existing.label_source_url or inferred.label_source_url,
+            readme_source_url=existing.readme_source_url or inferred.readme_source_url,
+            pcap_path=existing.pcap_path or inferred.pcap_path,
+            label_file_path=existing.label_file_path or inferred.label_file_path,
+            readme_path=existing.readme_path or inferred.readme_path,
+            pcap_compressed_path=existing.pcap_compressed_path or inferred.pcap_compressed_path,
+            download_status=existing.download_status if existing.download_status != "pending" else inferred.download_status,
+            notes=tuple(dict.fromkeys((*existing.notes, *inferred.notes))),
+        )
+    return [merged[key] for key in sorted(merged)]
+
+
 def parse_ctu13_label_file(
     path: str | Path,
     *,
@@ -329,7 +453,9 @@ __all__ = [
     "build_ctu13_manifest_entry",
     "ctu13_binary_label",
     "discover_ctu13_scenario_urls",
+    "infer_local_ctu13_manifest_entry",
     "load_ctu13_manifest",
+    "merge_ctu13_manifest_with_local_raw",
     "parse_ctu13_directory_index",
     "parse_ctu13_label_file",
     "save_ctu13_manifest",

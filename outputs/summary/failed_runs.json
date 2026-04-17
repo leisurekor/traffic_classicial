@@ -1,0 +1,112 @@
+[
+  {
+    "experiment_name": "CICIoT_csv_merge_c",
+    "dataset_name": "CICIoT2023",
+    "input_mode": "csv",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [
+      "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01.csv",
+      "/home/xdo/traffic_classicial/artifacts/cic_iot2023/Merged01_sample20k.csv"
+    ],
+    "reason": "Fewer than three merge CSV files were discovered. Available: ['Merged01.csv', 'Merged01_sample20k.csv']"
+  },
+  {
+    "experiment_name": "CICIDS2017_csv_wed",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "csv",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "No CSV file matching Wednesday was discovered under data/ or artifacts/."
+  },
+  {
+    "experiment_name": "CICIDS2017_csv_thu",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "csv",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "No CSV file matching Thursday was discovered under data/ or artifacts/."
+  },
+  {
+    "experiment_name": "CICIDS2017_csv_fri",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "csv",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "No CSV file matching Friday was discovered under data/ or artifacts/."
+  },
+  {
+    "experiment_name": "CICIDS2017_csv_merge",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "csv",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "Wednesday/Thursday/Friday CSV inputs were not all available, so merged CSV run was skipped."
+  },
+  {
+    "experiment_name": "CICIDS2017_pcap_wed",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "pcap",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "No PCAP file matching Wednesday was discovered under data/ or artifacts/."
+  },
+  {
+    "experiment_name": "CICIDS2017_pcap_thu",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "pcap",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "No PCAP file matching Thursday was discovered under data/ or artifacts/."
+  },
+  {
+    "experiment_name": "CICIDS2017_pcap_fri",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "pcap",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "No PCAP file matching Friday was discovered under data/ or artifacts/."
+  },
+  {
+    "experiment_name": "CICIDS2017_pcap_merge",
+    "dataset_name": "CICIDS2017",
+    "input_mode": "pcap",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [],
+    "reason": "Wednesday/Thursday/Friday PCAP runs require separate benign/malicious inputs, but the discovered CICIDS2017 PCAP assets were unavailable."
+  },
+  {
+    "experiment_name": "CTU13_pcap_clean_48_49_52_merge",
+    "dataset_name": "CTU13",
+    "input_mode": "pcap",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_48/capture20110816-2.truncated.pcap",
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_49/capture20110816-3.truncated.pcap",
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_52/capture20110818-2.truncated.pcap"
+    ],
+    "reason": "Current stable reproducible PCAP runner only supports file-level benign/malicious inputs. CTU-13 scenarios are mixed-label single-PCAP captures that require flow-level label alignment and scenario-specific regrouping before binary evaluation, which is outside this stable CSV/PCAP suite."
+  },
+  {
+    "experiment_name": "CTU13_pcap_full_48_49_52_merge",
+    "dataset_name": "CTU13",
+    "input_mode": "pcap",
+    "status": "failed",
+    "use_nuisance_aware": false,
+    "source_paths": [
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_48/capture20110816-2.truncated.pcap",
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_49/capture20110816-3.truncated.pcap",
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_52/capture20110818-2.truncated.pcap"
+    ],
+    "reason": "Current stable reproducible PCAP runner only supports file-level benign/malicious inputs. CTU-13 scenarios are mixed-label single-PCAP captures that require flow-level label alignment and scenario-specific regrouping before binary evaluation, which is outside this stable CSV/PCAP suite."
+  }
+]

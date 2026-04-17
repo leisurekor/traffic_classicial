@@ -1,0 +1,178 @@
+{
+  "mode": "mixed_flow",
+  "dataset_name": "CTU13",
+  "config": {
+    "use_nuisance_aware": false,
+    "random_seed": 44,
+    "mode": "clean",
+    "scenario_ids": [
+      "48",
+      "49",
+      "52"
+    ]
+  },
+  "summary": {
+    "run_id": "CTU13_public_mixedflow_clean_48_49_52_merge_seed44",
+    "timestamp": "20260417T145242Z",
+    "dataset_name": "CTU13",
+    "input_mode": "public_mixedflow",
+    "mode": "clean",
+    "backend": "gae",
+    "scenario_ids": [
+      "48",
+      "49",
+      "52"
+    ],
+    "label_paths": [
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_48/capture20110816-2.binetflow.2format",
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_49/capture20110816-3.binetflow.2format",
+      "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_52/capture20110818-2.binetflow.2format"
+    ],
+    "threshold": 0.881234423102548,
+    "threshold_percentile": 95.0,
+    "graph_score_reduction": "hybrid_max_rank_flow_node_max",
+    "label_loader_summary": {
+      "label_row_count": 2450784,
+      "kept_flow_count": 74148,
+      "per_scenario": [
+        {
+          "scenario_id": "48",
+          "label_file_path": "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_48/capture20110816-2.binetflow.2format",
+          "raw_label_row_count": 114077,
+          "parsed_label_flow_count": 114077,
+          "kept_flow_count": 1740,
+          "benign_flow_count": 1677,
+          "malicious_flow_count": 63,
+          "unknown_flow_count": 0
+        },
+        {
+          "scenario_id": "49",
+          "label_file_path": "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_49/capture20110816-3.binetflow.2format",
+          "raw_label_row_count": 2229456,
+          "parsed_label_flow_count": 2229455,
+          "kept_flow_count": 61526,
+          "benign_flow_count": 57219,
+          "malicious_flow_count": 4307,
+          "unknown_flow_count": 0
+        },
+        {
+          "scenario_id": "52",
+          "label_file_path": "/home/xdo/traffic_classicial/data/ctu13/raw/scenario_52/capture20110818-2.binetflow.2format",
+          "raw_label_row_count": 107251,
+          "parsed_label_flow_count": 107251,
+          "kept_flow_count": 10882,
+          "benign_flow_count": 2718,
+          "malicious_flow_count": 8164,
+          "unknown_flow_count": 0
+        }
+      ],
+      "flow_dataset_summary": {
+        "flow_count": 74148,
+        "protocols": [
+          "arp",
+          "icmp",
+          "tcp",
+          "udp"
+        ],
+        "earliest_start": "2011-08-16T13:51:24.057991+00:00",
+        "latest_end": "2011-08-18T15:55:45.074915+00:00",
+        "average_duration_seconds": 26.21836095298592
+      }
+    },
+    "total_packets": 0,
+    "parsed_packets": 0,
+    "total_flows": 74148,
+    "total_graphs": 173,
+    "benign_graph_count": 12,
+    "unknown_graph_count": 0,
+    "malicious_graph_count": 161,
+    "train_graph_count": 6,
+    "val_graph_count": 2,
+    "evaluation_graph_count": 165,
+    "flow_construction_success_rate": 1.0,
+    "graph_construction_success_rate": 1.0,
+    "feature_extraction_missing_ratio": 0.0,
+    "avg_preprocessing_time_per_sample": 0.30450074630635815,
+    "avg_training_time": 10.485775708999881,
+    "avg_inference_time": 0.0009122987272720903,
+    "overall_metrics": {
+      "precision": 0.9583333333333334,
+      "recall": 0.42857142857142855,
+      "f1": 0.592274678111588,
+      "roc_auc": 0.31288819875776397,
+      "pr_auc": 0.9640664509961085,
+      "false_positive_rate": 0.75,
+      "true_positive": 69,
+      "false_positive": 3,
+      "true_negative": 1,
+      "false_negative": 92,
+      "threshold": 0.881234423102548
+    },
+    "train_graph_score_summary": {
+      "count": 6,
+      "mean": 0.45588286047639054,
+      "std": 0.3159410056979734,
+      "min": 0.05877279774731434,
+      "q25": 0.17954949374412452,
+      "median": 0.44024144722587805,
+      "q75": 0.7003842839576526,
+      "q90": 0.8461781143309407,
+      "q95": 0.881234423102548,
+      "max": 0.9162907318741551
+    },
+    "training_history": [
+      {
+        "epoch": 1,
+        "train_loss": 0.9790756106376648,
+        "train_node_loss": 0.8403297662734985,
+        "train_edge_loss": 0.1387458418806394,
+        "train_graph_count": 6,
+        "train_batch_count": 3,
+        "val_loss": 7.424162864685059,
+        "val_node_loss": 7.360980987548828,
+        "val_edge_loss": 0.06318175792694092,
+        "val_graph_count": 2,
+        "val_batch_count": 1
+      }
+    ],
+    "notes": [
+      "PyTorch available; used the graph autoencoder smoke path.",
+      "Best checkpoint: /home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/_tmp_checkpoints/best",
+      "Validation graphs: 2",
+      "Train graphs: 6",
+      "Graph score reduction: hybrid_max_rank_flow_node_max",
+      "Background flows were dropped before graph construction.",
+      "Training still uses benign-only graphs; background graphs are evaluation-only negatives."
+    ],
+    "artifact_paths": {
+      "overall_scores_csv": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/overall_scores.csv",
+      "overall_scores_jsonl": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/overall_scores.jsonl",
+      "graph_summary_csv": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/graph_summary.csv",
+      "graph_summary_json": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/graph_summary.json",
+      "checkpoint_dir": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/checkpoints",
+      "summary_json": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/ctu13_public_mixedflow_summary.json"
+    },
+    "row_counts": {
+      "overall_scores_csv": 165,
+      "overall_scores_jsonl": 165,
+      "graph_summary_csv": 173
+    }
+  },
+  "artifact_paths": {
+    "overall_scores_csv": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/overall_scores.csv",
+    "overall_scores_jsonl": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/overall_scores.jsonl",
+    "graph_summary_csv": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/graph_summary.csv",
+    "graph_summary_json": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/graph_summary.json",
+    "checkpoint_dir": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/checkpoints",
+    "summary_json": "/home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/CTU13_public_mixedflow_clean_48_49_52_merge_seed44/20260417T145242Z/ctu13_public_mixedflow_summary.json"
+  },
+  "notes": [
+    "PyTorch available; used the graph autoencoder smoke path.",
+    "Best checkpoint: /home/xdo/traffic_classicial/outputs/runs/ctu13_public_mixedflow/_tmp_checkpoints/best",
+    "Validation graphs: 2",
+    "Train graphs: 6",
+    "Graph score reduction: hybrid_max_rank_flow_node_max",
+    "Background flows were dropped before graph construction.",
+    "Training still uses benign-only graphs; background graphs are evaluation-only negatives."
+  ]
+}

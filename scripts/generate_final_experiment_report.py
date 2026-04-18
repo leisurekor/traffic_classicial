@@ -333,12 +333,12 @@ def _generate_ctu13_pipeline_chart() -> str:
 
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), dpi=180)
     axes[0].bar(scenario_labels, benign, color="#70AD47", label="benign flows")
-    axes[0].bar(scenario_labels, malicious, bottom=benign, color="#4472C4", label="malicious flows")
+    axes[0].bar(scenario_labels, malicious, bottom=benign, color="#C00000", label="malicious flows")
     axes[0].bar(
         scenario_labels,
         unknown,
         bottom=[b + m for b, m in zip(benign, malicious)],
-        color="#A5A5A5",
+        color="#BFBFBF",
         label="unknown/background flows",
     )
     axes[0].set_title("Flow label alignment distribution", fontweight="bold")
@@ -346,12 +346,12 @@ def _generate_ctu13_pipeline_chart() -> str:
     axes[0].legend(fontsize=8)
 
     axes[1].bar(scenario_labels, graph_benign, color="#70AD47", label="benign graphs")
-    axes[1].bar(scenario_labels, graph_malicious, bottom=graph_benign, color="#4472C4", label="malicious graphs")
+    axes[1].bar(scenario_labels, graph_malicious, bottom=graph_benign, color="#C00000", label="malicious graphs")
     axes[1].bar(
         scenario_labels,
         graph_unknown,
         bottom=[b + m for b, m in zip(graph_benign, graph_malicious)],
-        color="#A5A5A5",
+        color="#BFBFBF",
         label="unknown-heavy graphs",
     )
     axes[1].set_title("Primary graph extraction distribution", fontweight="bold")
@@ -544,6 +544,10 @@ def build_report_markdown() -> str:
         "",
         f"![merge01 summary chart]({merge_summary_chart})" if merge_summary_chart else "（当前运行环境未生成额外汇总图；原因是 matplotlib 不可用。）",
         "",
+        "从指标含义来看，Accuracy（准确率）和 F1 的同时走高，说明该模型并非仅仅依赖某一类样本占优而取得表面高分。Precision（精确率）接近 1，意味着模型一旦给出 malicious 判定，其误报比例很低；Recall（召回率）保持在较高水平，则说明真实攻击样本中大部分能够被捕获。ROC-AUC 与 PR-AUC 同时处于高位，表明无论从阈值无关排序能力还是从正类检出能力角度看，模型在 `merge01.csv` 上都具有较强区分性。",
+        "值得注意的是，Macro-F1 明显低于整体 F1。这通常意味着不同类别上的表现并不完全对称，或者数据分布存在明显不平衡。结合日志中可见的样本组成可以推断，`merge01.csv` 这条主结果线虽然充分证明了模型在标准流特征输入上的检测能力，但它并不意味着所有类别上的难度完全一致。因此，`merge01.csv` 更适合支撑“模型有较强分类能力”这一结论，而不宜被过度解读为“所有类别都同样容易”。",
+        "从稳定性角度看，三随机种子的 F1 波动仅在很小范围内变化，这说明当前 CSV 主结果不是一次偶然的高分，而是具有可重复性。换言之，`merge01.csv` 提供的是一条较稳的性能上界参考线。",
+        "",
         "对应的单种子结果如下：",
         "",
         _extract_merge01_seed_overview(merge_row),
@@ -566,6 +570,11 @@ def build_report_markdown() -> str:
         "",
         _ctu13_results_table(ctu13_rows),
         "",
+        "这些结果说明，图侧主 benchmark 在 primary 指标上相对 node-centric baseline 有显著优势。尤其是在 merged `48/49/52` 上，graph benchmark 的 F1 从 `0.2857` 提升到 `0.9412`，Recall 从 `0.1765` 提升到 `0.9412`，而 FPR 保持在 `0.0294` 不变。这一现象表明：当前图主线的价值主要不是“通过牺牲误报来换取召回”，而是在**基本不恶化 FPR 的前提下显著提升了恶意样本检出能力**。",
+        "分场景来看，`scenario 52` 的提升最为显著：F1 从 `0.4000` 提升到 `1.0000`，Recall 从 `0.2500` 提升到 `1.0000`，同时 FPR 仍保持为 `0.0000`。这意味着在该场景下，图结构表示对恶意行为模式的刻画尤为有效。`scenario 49` 同样表现出明显收益，Recall 达到 `1.0000`，但 background hit ratio 也相对更高，说明这一场景中的未知背景流量更容易与 malicious-like 图模式发生重叠。`scenario 48` 的提升方向与总体结论一致，但 Recall 仍只有 `0.5000`，表明该场景下恶意样本覆盖仍然偏难。",
+        "另一方面，CTU13 结果也揭示了当前方法的明确代价：虽然 primary F1 / Recall 显著提升，但 background hit ratio 同时上升。例如 merged `48/49/52` 上，background hit ratio 从 baseline 的 `0.0704` 增加到 graph benchmark 的 `0.2844`。这意味着图主线在提升恶意检出的同时，也更容易把 unknown/background 视作 malicious-like。换言之，当前图侧结果证明了链路的检测能力，但也同步暴露了背景流量重叠仍然是主要残余难点。",
+        "因此，CTU13 图侧 benchmark 的意义可以概括为两点：第一，它已经足以证明从原始 PCAP 到图建模再到检测的链路是真实可行的；第二，它也清楚地说明了当前系统最突出的剩余风险不再是“主线完全抓不到 malicious”，而是“unknown/background 是否会被一并推高到 malicious-like 区域”。",
+        "",
         f"![ctu13 benchmark summary]({ctu13_benchmark_chart})" if ctu13_benchmark_chart else "（当前运行环境未生成 CTU13 汇总图；原因是 matplotlib 不可用。）",
         "",
         "作为图侧 benchmark 的支持性结果文件如下：",
@@ -585,6 +594,8 @@ def build_report_markdown() -> str:
         "进入 primary graph extraction 前的图统计为：",
         "",
         _read_text(CTU13_EXTRACTION_MD).strip(),
+        "",
+        "图 3 中最重要的信息，并不是 benign 或 malicious 的绝对数量，而是 unknown/background 在 flow 对齐和 primary graph extraction 后都占据了明显主导比例。这说明 CTU13 图侧 benchmark 从一开始就不是一个“干净二分类”问题，而是在极强背景干扰下进行的恶意检测问题。也正因为如此，primary 指标的大幅提升更能说明图主线具有真实价值；同时，background hit ratio 的上升也更值得被严肃对待，而不能被简单忽略为噪声。",
         "",
         "在当前正式采纳的结果集合中，没有发现与 CTU13 48/49/52 graph benchmark 一一对应的独立 PNG 曲线图文件；因此本报告对 CTU13 部分只引用真实存在的 benchmark 表和摘要文件，不补造任何额外图表。",
         "",

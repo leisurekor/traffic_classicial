@@ -1,0 +1,47 @@
+<svg width="1800" height="860" viewBox="0 0 1800 860" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bga" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f9fbff"/>
+      <stop offset="100%" stop-color="#eef5ff"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#102542" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M0,0 L14,7 L0,14 z" fill="#2155ff"/>
+    </marker>
+  </defs>
+  <rect width="1800" height="860" fill="url(#bga)"/>
+  <text x="90" y="90" font-size="42" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#0b1220">从原始 PCAP 到图级判定的构建链路</text>
+  <text x="90" y="135" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#475569">重点不在直接对 packet 建图，而在于先形成带行为信息的 flow，再组织为 endpoint interaction graph</text>
+  <g filter="url(#cardShadow)">
+    <rect x="90" y="220" rx="26" width="280" height="260" fill="#ffffff"/>
+    <rect x="430" y="220" rx="26" width="280" height="260" fill="#ffffff"/>
+    <rect x="770" y="220" rx="26" width="280" height="260" fill="#ffffff"/>
+    <rect x="1110" y="220" rx="26" width="280" height="260" fill="#ffffff"/>
+    <rect x="1450" y="220" rx="26" width="260" height="260" fill="#ffffff"/>
+  </g>
+  <text x="120" y="278" font-size="30" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">1. PCAP 解析</text>
+  <text x="120" y="330" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">读取 packet 流</text>
+  <text x="120" y="370" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">保留时间、方向、协议与长度信息</text>
+  <text x="460" y="278" font-size="30" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">2. Flow 聚合</text>
+  <text x="460" y="330" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">按双向端点对与协议形成 flow</text>
+  <text x="460" y="370" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">包含 pkt/byte/IAT/flag/burst 等行为特征</text>
+  <text x="800" y="278" font-size="30" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">3. 图构建</text>
+  <text x="800" y="330" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">node = endpoint_type + ip + port + proto</text>
+  <text x="800" y="370" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">edge = communication / association</text>
+  <text x="1140" y="278" font-size="30" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">4. 特征打包</text>
+  <text x="1140" y="330" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">节点统计 + 结构位置特征</text>
+  <text x="1140" y="370" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">边行为编码 + NaN/Inf 清洗</text>
+  <text x="1480" y="278" font-size="30" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">5. 图级检测</text>
+  <text x="1480" y="330" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">GAE 重构</text>
+  <text x="1480" y="370" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">高异常尾部证据聚合</text>
+  <line x1="370" y1="350" x2="430" y2="350" stroke="#2155ff" stroke-width="8" marker-end="url(#arrowBlue)"/>
+  <line x1="710" y1="350" x2="770" y2="350" stroke="#2155ff" stroke-width="8" marker-end="url(#arrowBlue)"/>
+  <line x1="1050" y1="350" x2="1110" y2="350" stroke="#2155ff" stroke-width="8" marker-end="url(#arrowBlue)"/>
+  <line x1="1390" y1="350" x2="1450" y2="350" stroke="#2155ff" stroke-width="8" marker-end="url(#arrowBlue)"/>
+  <rect x="90" y="560" width="1620" height="180" rx="28" fill="#0f172a"/>
+  <text x="130" y="622" font-size="30" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#ffffff">理论关键点</text>
+  <text x="130" y="675" font-size="24" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#dbe7ff">• 项目并不是直接把 packet 当图节点，而是先聚合成具有统计与行为语义的 flow。</text>
+  <text x="130" y="715" font-size="24" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#dbe7ff">• communication edge 不是简单连边，而是局部通信行为摘要；association edge 则表达结构/行为相似性。</text>
+</svg>

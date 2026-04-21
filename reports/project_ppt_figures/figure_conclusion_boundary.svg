@@ -1,0 +1,22 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#f7faff"/>
+  <text x="100" y="96" font-size="44" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#0b1220">项目结论边界图</text>
+  <text x="100" y="142" font-size="23" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#475569">这一图用于明确“当前结果能证明什么”与“当前结果不能外推到什么”</text>
+  <rect x="110" y="220" width="620" height="560" rx="30" fill="#eff8f1" stroke="#8cc28c" stroke-width="4"/>
+  <rect x="870" y="220" width="620" height="560" rx="30" fill="#fff4f4" stroke="#d16a6a" stroke-width="4"/>
+  <text x="160" y="290" font-size="38" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#1d6d35">当前结果可以证明</text>
+  <text x="160" y="360" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• merge01.csv 足以支撑当前 CSV 主结论</text>
+  <text x="160" y="415" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• 模型在标准化流特征输入上具有稳定分类能力</text>
+  <text x="160" y="470" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• CTU13 48/49/52 可作为图侧主 benchmark</text>
+  <text x="160" y="525" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• 已有 CTU13 的 PCAP-based graph benchmark 结果</text>
+  <text x="160" y="580" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• 当前项目证明了分类能力与图侧链路可行性</text>
+  <text x="160" y="635" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• use_nuisance_aware = false 仍能支撑当前正式结论</text>
+
+  <text x="920" y="290" font-size="38" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#a41d1d">当前结果不能证明</text>
+  <text x="920" y="360" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• 完整多数据集 PCAP 主实验体系已经完成</text>
+  <text x="920" y="415" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• 已建立跨数据集完整 PCAP 实验矩阵</text>
+  <text x="920" y="470" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• CICIDS2017 PCAP 已系统验证完成</text>
+  <text x="920" y="525" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• background / unknown 问题已经解决</text>
+  <text x="920" y="580" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• nuisance-aware 已成为最终主线</text>
+  <text x="920" y="635" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">• episode-graph 已成为最终系统核心</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7faff"/>
+      <stop offset="100%" stop-color="#edf3fb"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2155ff"/>
+      <stop offset="100%" stop-color="#5a8dff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#102542" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="100" y="100" font-size="44" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#0b1220">项目总体技术路线</text>
+  <text x="100" y="145" font-size="23" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#475569">以 benign-only 异常检测为理论核心，采用 CSV 与 Graph 双视角完成互补验证</text>
+
+  <rect x="100" y="230" rx="28" ry="28" width="420" height="480" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="100" y="230" rx="28" ry="28" width="420" height="86" fill="url(#accent)"/>
+  <text x="136" y="284" font-size="34" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#ffffff">CSV 主实验线</text>
+  <text x="136" y="350" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">输入</text>
+  <text x="136" y="390" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">merge01.csv 的结构化流特征表</text>
+  <text x="136" y="455" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">方法</text>
+  <text x="136" y="495" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">StandardScaler + PCA + 重构误差</text>
+  <text x="136" y="560" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">回答的问题</text>
+  <text x="136" y="600" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">模型在标准化表格输入上是否具备稳定分类能力？</text>
+  <text x="136" y="665" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">正式结论</text>
+  <text x="136" y="705" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">F1 = 0.9876，证明 CSV 主结果成立</text>
+
+  <rect x="560" y="230" rx="28" ry="28" width="480" height="480" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="560" y="230" rx="28" ry="28" width="480" height="86" fill="#dbe7ff"/>
+  <text x="600" y="284" font-size="34" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#163a8a">统一方法论核心</text>
+  <text x="602" y="370" font-size="28" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#0f172a">Benign-only Normality Modeling</text>
+  <text x="602" y="412" font-size="23" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">仅用 benign 建立正常行为参考</text>
+  <text x="602" y="500" font-size="28" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#0f172a">Unsupervised Anomaly Detection</text>
+  <text x="602" y="542" font-size="23" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#334155">以偏离程度而非监督标签作为检测依据</text>
+  <line x1="620" y1="590" x2="980" y2="590" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="602" y="650" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#163a8a">正式口径</text>
+  <text x="602" y="690" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">use_nuisance_aware = false</text>
+
+  <rect x="1080" y="230" rx="28" ry="28" width="420" height="480" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="1080" y="230" rx="28" ry="28" width="420" height="86" fill="#0f172a"/>
+  <text x="1118" y="284" font-size="34" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#ffffff">Graph 主实验线</text>
+  <text x="1118" y="350" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">输入</text>
+  <text x="1118" y="390" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">CTU13 原始 PCAP 下游流图数据</text>
+  <text x="1118" y="455" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">方法</text>
+  <text x="1118" y="495" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">PCAP → flow → graph → GAE → graph score</text>
+  <text x="1118" y="560" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">回答的问题</text>
+  <text x="1118" y="600" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">图建模链路是否可行，图表示是否具有结构价值？</text>
+  <text x="1118" y="665" font-size="25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">正式结论</text>
+  <text x="1118" y="705" font-size="22" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">Merged F1 = 0.9412，形成 PCAP-based graph benchmark</text>
+
+  <path d="M 520 470 C 540 470, 540 470, 560 470" stroke="#2155ff" stroke-width="8" fill="none" marker-end="url(#arr)"/>
+  <path d="M 1040 470 C 1060 470, 1060 470, 1080 470" stroke="#2155ff" stroke-width="8" fill="none" marker-end="url(#arr)"/>
+  <defs>
+    <marker id="arr" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#2155ff"/>
+    </marker>
+  </defs>
+</svg>

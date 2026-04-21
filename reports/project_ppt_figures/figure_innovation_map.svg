@@ -1,0 +1,34 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#102542" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="#f8fbff"/>
+  <text x="100" y="96" font-size="44" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#0b1220">项目创新点总结图</text>
+  <circle cx="800" cy="450" r="124" fill="#2155ff" filter="url(#sh)"/>
+  <text x="728" y="438" font-size="32" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#ffffff">恶意流量</text>
+  <text x="711" y="480" font-size="32" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#ffffff">检测研究</text>
+  <g filter="url(#sh)">
+    <rect x="140" y="180" width="420" height="170" rx="28" fill="#ffffff"/>
+    <rect x="1040" y="180" width="420" height="170" rx="28" fill="#ffffff"/>
+    <rect x="140" y="560" width="420" height="170" rx="28" fill="#ffffff"/>
+    <rect x="1040" y="560" width="420" height="170" rx="28" fill="#ffffff"/>
+  </g>
+  <text x="176" y="240" font-size="28" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">创新点 1</text>
+  <text x="176" y="286" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">将 benign-only 异常检测</text>
+  <text x="176" y="320" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">扩展到流交互图表示</text>
+  <text x="1076" y="240" font-size="28" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">创新点 2</text>
+  <text x="1076" y="286" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">边特征不是简单流统计，</text>
+  <text x="1076" y="320" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">而是行为模式编码</text>
+  <text x="176" y="620" font-size="28" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">创新点 3</text>
+  <text x="176" y="666" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">图级检测强调局部异常支持，</text>
+  <text x="176" y="700" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">而非全图平均异常</text>
+  <text x="1076" y="620" font-size="28" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" fill="#2155ff">创新点 4</text>
+  <text x="1076" y="666" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">采用 CSV 主结果 + CTU13 图主 benchmark</text>
+  <text x="1076" y="700" font-size="21" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#0f172a">形成双证据链验证</text>
+  <line x1="560" y1="265" x2="690" y2="390" stroke="#94a3b8" stroke-width="6"/>
+  <line x1="1040" y1="265" x2="910" y2="390" stroke="#94a3b8" stroke-width="6"/>
+  <line x1="560" y1="645" x2="690" y2="515" stroke="#94a3b8" stroke-width="6"/>
+  <line x1="1040" y1="645" x2="910" y2="515" stroke="#94a3b8" stroke-width="6"/>
+</svg>

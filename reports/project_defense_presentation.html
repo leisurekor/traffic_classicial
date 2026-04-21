@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基于加密流量交互特性的异常检测系统 - 结项答辩</title>
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=clash-display@500,600,700&display=swap" rel="stylesheet" />
+    <style>
+        /* ===========================================
+           THEME: BLUE-WHITE-GRAY TECH ACADEMIC
+           =========================================== */
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-dark-blue: #0f172a;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-inverse: #f8fafc;
+            
+            --accent-blue: #2563eb;
+            --accent-light-blue: #eff6ff;
+            --accent-border: #e2e8f0;
+            
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.6s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-display); }
+
+/* ===========================================
+   VIEWPORT FITTING: MANDATORY BASE STYLES
+   Include this ENTIRE file in every presentation.
+   These styles ensure slides fit exactly in the viewport.
+   =========================================== */
+
+/* 1. Lock html/body to viewport */
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+/* 2. Each slide = exact viewport height */
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    overflow: hidden; /* CRITICAL: Prevent ANY overflow */
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* 3. Content container with flex for centering */
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden; /* Double-protection against overflow */
+    padding: var(--slide-padding);
+}
+
+/* 4. ALL typography uses clamp() for responsive scaling */
+:root {
+    /* Titles scale from mobile to desktop */
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+
+    /* Body text */
+    --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+    --small-size: clamp(0.65rem, 1vw, 0.875rem);
+
+    /* Spacing scales with viewport */
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+}
+
+/* 5. Cards/containers use viewport-relative max sizes */
+.card, .container, .content-box {
+    max-width: min(90vw, 1000px);
+    max-height: min(80vh, 700px);
+}
+
+/* 6. Lists auto-scale with viewport */
+.feature-list, .bullet-list {
+    gap: clamp(0.4rem, 1vh, 1rem);
+}
+
+.feature-list li, .bullet-list li {
+    font-size: var(--body-size);
+    line-height: 1.4;
+}
+
+/* 7. Grids adapt to available space */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* 8. Images constrained to viewport */
+img, .image-container {
+    max-width: 100%;
+    max-height: min(50vh, 400px);
+    object-fit: contain;
+}
+
+/* ===========================================
+   RESPONSIVE BREAKPOINTS
+   Aggressive scaling for smaller viewports
+   =========================================== */
+
+/* Short viewports (< 700px height) */
+@media (max-height: 700px) {
+    :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size: clamp(1rem, 3vw, 1.75rem);
+    }
+}
+
+/* Very short viewports (< 600px height) */
+@media (max-height: 600px) {
+    :root {
+        --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+        --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+        --title-size: clamp(1.1rem, 4vw, 2rem);
+        --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+    }
+
+    /* Hide non-essential elements */
+    .nav-dots, .keyboard-hint, .decorative {
+        display: none;
+    }
+}
+
+/* Extremely short (landscape phones, < 500px height) */
+@media (max-height: 500px) {
+    :root {
+        --slide-padding: clamp(0.4rem, 2vw, 1rem);
+        --title-size: clamp(1rem, 3.5vw, 1.5rem);
+        --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        --body-size: clamp(0.65rem, 1vw, 0.85rem);
+    }
+}
+
+/* Narrow viewports (< 600px width) */
+@media (max-width: 600px) {
+    :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+    }
+
+    /* Stack grids vertically */
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===========================================
+   REDUCED MOTION
+   Respect user preferences
+   =========================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+
+        /* ===========================================
+           SLIDE STYLES
+           =========================================== */
+        .slide { background: var(--bg-primary); }
+        
+        .slide::after {
+            content: '西安电子科技大学 · 创新训练计划项目答辩';
+            position: absolute;
+            bottom: clamp(10px, 3vh, 20px);
+            left: var(--slide-padding);
+            color: var(--text-secondary);
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            font-weight: 500;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+            pointer-events: none;
+        }
+
+        .title-slide {
+            background: var(--bg-dark-blue);
+            color: var(--text-inverse);
+            display: flex;
+            align-items: center;
+        }
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(37,99,235,0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .title-slide::after { color: rgba(255,255,255,0.3); }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 0.5rem;
+            color: var(--text-inverse);
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: var(--h3-size);
+            color: #94a3b8;
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+        }
+        .meta-item p { font-size: var(--small-size); color: #64748b; margin-bottom: 0.2rem; }
+        .meta-item strong { font-size: var(--body-size); }
+
+        h2 {
+            font-size: var(--h2-size);
+            color: var(--bg-dark-blue);
+            margin-bottom: var(--content-gap);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+            display: inline-block;
+        }
+
+        .two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.5rem, 4vw, 3rem);
+            height: 100%;
+        }
+        
+        .three-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: clamp(1rem, 2vw, 2rem);
+            height: 100%;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-border);
+            padding: var(--content-gap);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .card.highlight {
+            border-left: 4px solid var(--accent-blue);
+            background: var(--accent-light-blue);
+        }
+        
+        .card h3 { color: var(--bg-dark-blue); font-size: var(--h3-size); margin-bottom: 0.5rem; }
+        .card p, .card ul { color: var(--text-secondary); line-height: 1.6; font-size: var(--body-size); }
+        .card ul { padding-left: 1.5rem; }
+        .card li { margin-bottom: 0.5rem; }
+
+        .diagram-box {
+            background: var(--bg-secondary);
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-secondary);
+        }
+        
+        .diagram-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .pipeline-arrow {
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 5px;
+        }
+        .pipeline-node {
+            background: var(--bg-secondary);
+            border: 1px solid #94a3b8;
+            color: var(--bg-dark-blue);
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: var(--small-size);
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .pipeline-node.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+        
+        .circle-node {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--accent-blue);
+            font-size: var(--small-size);
+        }
+        
+        .feature-pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .pyramid-level {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: 500;
+            color: white;
+            font-size: var(--small-size);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 4px;
+            background: var(--accent-blue);
+            width: 0%;
+            z-index: 100;
+            transition: width 0.3s;
+        }
+        
+        .nav-dots {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+        .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: var(--accent-blue);
+            transform: scale(1.5);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+    <nav class="nav-dots"></nav>
+
+    <!-- 1. 封面页 -->
+    <section class="slide title-slide">
+        <div class="slide-content" style="max-width: 1000px; margin: 0 auto;">
+            <h1 class="reveal">基于加密流量交互特性的<br>异常检测系统</h1>
+            <p class="subtitle reveal">大学生创新训练计划项目 · 结项答辩 (省级 X202510701778)</p>
+            <div class="meta-grid reveal">
+                <div class="meta-item"><p>项目组成员</p><strong>刘嘉成、陈恒宇、肖禹同</strong></div>
+                <div class="meta-item"><p>指导教师</p><strong>靖旭阳 副教授</strong></div>
+                <div class="meta-item"><p>答辩单位</p><strong>西安电子科技大学</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 项目简介 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">项目简介：痛点与破局</h2>
+            <div class="card highlight reveal" style="margin-bottom: 20px;">
+                <h3>环境挑战与核心方法</h3>
+                <p>本项目面向加密网络环境下<strong>载荷不可见、标注样本稀缺</strong>等挑战，提出一种基于**无监督流图建模图表示学习**的系统架构方案。摒弃传统单流独立判别，将检测任务拓展为跨流关联的结构化分析。</p>
+            </div>
+            <div class="two-cols">
+                <div class="card reveal">
+                    <h3>核心技术路线</h3>
+                    <div class="diagram-box" style="padding: 10px; min-height: 120px;">
+                        <div class="diagram-row">
+                            <div style="font-size: var(--small-size); font-weight: 500; color: var(--bg-dark-blue);">原始PCAP</div>
+                            <div class="pipeline-arrow">→</div>
+                            <div style="font-size: var(--small-size); font-weight: 500; color: var(--bg-dark-blue);">图网络模型</div>
+                            <div class="pipeline-arrow">→</div>
+                            <div style="font-size: var(--small-size); font-weight: 500; color: var(--accent-blue);">异常输出判定</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <h3>应用价值</h3>
+                    <p>突破单条流分类的视野局限，有效捕获隐藏在复杂通信网络中的**连片协同攻击与隐蔽扫描**，大幅提升面对零日变种的发现能力。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 研究背景与问题提出 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">研究背景：现有加密检测的局限性</h2>
+            <div class="grid">
+                <div class="card reveal" style="border-top: 3px solid #64748b;">
+                    <h3>1. 载荷不可见</h3>
+                    <p>传统基于规则匹配的 DPI（深层包检测）技术面临加密协议化直接失效，无法提取内容指纹。</p>
+                </div>
+                <div class="card reveal" style="border-top: 3px solid #64748b;">
+                    <h3>2. 单流特征不足</h3>
+                    <p>仅凭独条网络流的包长、到达时间等统计特征，根本无法刻画僵尸网络和木马的**协同结构模式**。</p>
+                </div>
+                <div class="card reveal" style="border-top: 3px solid #64748b;">
+                    <h3>3. 标签依赖过强</h3>
+                    <p>已有监督模型面对特征漂移和**零日（Zero-day）未知变种**往往泛化崩溃，无能为力。</p>
+                </div>
+                <div class="card reveal" style="border-top: 3px solid #64748b;">
+                    <h3>4. 环境泛化困难</h3>
+                    <p>夹杂海量真实 Background / Unknown 的背景底噪会让原本实验室里跑得好的模型**误报率极速攀升**。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 研究目标与总体思路 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">研究目标：面向结构的无监督异常检测</h2>
+            <div class="two-cols">
+                <div class="card reveal">
+                    <h3>转变思路：逆向思维建模</h3>
+                    <p>与其满世界找恶意样本学习，不如让模型**只掌握“正常通信结构”（Benign）**。遭遇未知流量或隐蔽渗透交互时，它必然与我们建立的良性参考发生极大偏差。</p>
+                </div>
+                <div class="card highlight reveal">
+                    <h3>建模升级：流量“拓扑化”</h3>
+                    <p>引入**“统计行为 + 端点交互 + 图结构”**的三维重塑方案，使流量从孤立线条变为具备组网联系的拓扑图态。</p>
+                </div>
+            </div>
+            
+            <div class="diagram-box reveal" style="margin-top: 20px;">
+                <div class="diagram-row">
+                    <div style="text-align: center; flex: 1;">
+                        <p style="font-weight: 500; margin-bottom: 5px;">传统方法</p>
+                        <div class="pipeline-node" style="width:100%;">孤立流 ➔ 预测标签</div>
+                    </div>
+                    <div style="font-size: 2rem; color: #cbd5e1; margin: 0 20px;">VS</div>
+                    <div style="text-align: center; flex: 1;">
+                        <p style="font-weight: 500; margin-bottom: 5px; color: var(--accent-blue);">本项目方法</p>
+                        <div class="pipeline-node active" style="width:100%;">正常图网络 ➔ 重构打分 ➔ 分离异常边界</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 系统总体流程图 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">系统技术链路：从端流到图谱闭环</h2>
+            <p class="reveal" style="color: var(--text-secondary); margin-bottom: 20px;">从底层原始 PCAP 提取，直至图神经网络输出判定的全链条。</p>
+            
+            <div class="diagram-box reveal" style="padding: 2rem; background: var(--bg-secondary); border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <!-- Row 1 -->
+                <div class="diagram-row" style="margin-bottom: 30px;">
+                    <div class="pipeline-node" style="min-width: 140px;">
+                        <span style="display:block; font-size:1.2rem; margin-bottom:5px;">📁</span>
+                        1. PCAP 抓包解析
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-node" style="min-width: 140px;">
+                        <span style="display:block; font-size:1.2rem; margin-bottom:5px;">📊</span>
+                        2. 流级构建<br>(Flow Builder)
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-node active" style="min-width: 140px; box-shadow: 0 4px 15px rgba(37,99,235,0.3);">
+                        <span style="display:block; font-size:1.2rem; margin-bottom:5px;">🕸️</span>
+                        3. 关系建模与建图<br>(Graph Generation)
+                    </div>
+                </div>
+                
+                <!-- Down Arrow -->
+                <div style="text-align: right; padding-right: 15%; color: var(--accent-blue); font-size: 1.5rem; margin-bottom: 10px;">
+                    ↓
+                </div>
+                
+                <!-- Row 2 -->
+                <div class="diagram-row" style="flex-direction: row-reverse;">
+                    <div class="pipeline-node" style="min-width: 140px; background: #f1f5f9; border-color: #94a3b8;">
+                        <span style="display:block; font-size:1.2rem; margin-bottom:5px;">🚨</span>
+                        6. 恶意判定与输出
+                    </div>
+                    <div class="pipeline-arrow" style="transform: rotate(180deg);">→</div>
+                    <div class="pipeline-node active" style="min-width: 140px;">
+                        <span style="display:block; font-size:1.2rem; margin-bottom:5px;">⚙️</span>
+                        5. GAE 前向重构<br>(异常得分)
+                    </div>
+                    <div class="pipeline-arrow" style="transform: rotate(180deg);">→</div>
+                    <div class="pipeline-node active" style="min-width: 140px;">
+                        <span style="display:block; font-size:1.2rem; margin-bottom:5px;">📦</span>
+                        4. 多维特征封装<br>(提取关联)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 流图构建方法 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">核心突破：流图构建方法 (Graph Construction)</h2>
+            <div class="two-cols">
+                <div class="card highlight reveal">
+                    <h3>如何把流量织成“网”？</h3>
+                    <ul>
+                        <li><strong>节点 (Nodes)：</strong>代表通信端点(Endpoint)或独立网络流(Flow)。</li>
+                        <li><strong>边 (Edges)：</strong>不止表示有包传输，更注入了行为约束：
+                            <br><span style="padding-left:10px; color: var(--accent-blue); font-size:var(--small-size);">1. 通信交互关系</span>
+                            <br><span style="padding-left:10px; color: var(--accent-blue); font-size:var(--small-size);">2. 源站同源性关联</span>
+                            <br><span style="padding-left:10px; color: var(--accent-blue); font-size:var(--small-size);">3. 子网横向扫描关联</span>
+                        </li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>意义：</strong>孤立的流被复原出规律通信网，逼迫隐蔽的协同攻击现出原形。</p>
+                </div>
+                
+                <div class="diagram-box reveal">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <!-- Loose flows -->
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="circle-node">F1</div>
+                            <div class="circle-node">F2</div>
+                            <div class="circle-node">F3</div>
+                            <p style="font-size: 0.7rem; text-align: center; margin-top:5px; color:#64748b;">离散独立流分析<br>(传统)</p>
+                        </div>
+                        
+                        <div class="pipeline-arrow">=== 多维规则映射 ===></div>
+                        
+                        <!-- Graph -->
+                        <div style="position: relative; width: 120px; height: 120px;">
+                            <div class="circle-node active" style="position:absolute; top:40px; left:40px; background:var(--accent-blue); color:white;">IP-A</div>
+                            <div class="circle-node" style="position:absolute; top:0; left:80px; width:30px; height:30px;">F1</div>
+                            <div class="circle-node" style="position:absolute; top:80px; left:80px; width:30px; height:30px;">F2</div>
+                            <div class="circle-node" style="position:absolute; top:80px; left:0; width:30px; height:30px;">F3</div>
+                            
+                            <svg width="120" height="120" style="position:absolute; top:0; left:0; z-index:-1;">
+                                <line x1="60" y1="60" x2="95" y2="15" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,2"/>
+                                <line x1="60" y1="60" x2="95" y2="95" stroke="#2563eb" stroke-width="2"/>
+                                <line x1="60" y1="60" x2="15" y2="95" stroke="#2563eb" stroke-width="2"/>
+                                <line x1="15" y1="95" x2="95" y2="95" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2,4"/>
+                            </svg>
+                            <p style="position:absolute; font-size: 0.7rem; text-align: center; top: 130px; left:0; width:100%; color:var(--accent-blue);">强组织性拓扑网络</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. 特征提取与表示方法 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">特征表示：剥离载荷的多维属性层级</h2>
+            <div class="two-cols">
+                <div class="diagram-box reveal">
+                    <div class="feature-pyramid">
+                        <div class="pyramid-level" style="background: #1e293b; width: 40%;">3. 图邻域聚合结构</div>
+                        <div class="pyramid-level" style="background: #3b82f6; width: 70%;">2. 边交互协议关系 (TCP/UDP/态)</div>
+                        <div class="pyramid-level" style="background: #94a3b8; width: 100%;">1. 节点基础统计学 (包长/到达间隔)</div>
+                    </div>
+                    <p style="font-size: var(--small-size); margin-top: 15px; text-align:center;">天然免疫加密手段的内容无关(Payload-Free)表征</p>
+                </div>
+                
+                <div class="card reveal">
+                    <h3>联合建模优势</h3>
+                    <p>不触碰被加密的净载荷，安全合规且泛化性强。</p>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>基础统计底板：</strong>沿用经典行为轮廓。</li>
+                        <li><strong>交互关系层：</strong>揭露握手次数与连接时序。</li>
+                        <li><strong>图结构顶层：</strong>通过邻域聚类和联通度参数，直接反应扫描群的拓扑形状。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. 分类器/检测器原理 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">无监督判定：图自编码(GAE)重构打分</h2>
+            <div class="two-cols">
+                <div class="card reveal" style="justify-content: center;">
+                    <h3>逻辑原理：找寻“违和感”</h3>
+                    <p>训练时专喂“良性图”给 GAE，强迫它擅长重组正常网络。当遇到变种僵尸图网络入侵时，机器重构极度吃力，产生极高的**重建误差 (Reconstruction Loss)**。此误差即**异常偏离评分**。</p>
+                </div>
+                
+                <div class="diagram-box reveal" style="padding: 10px;">
+                    <div style="font-size:var(--small-size); font-weight:bold; margin-bottom:10px;">GAE Architecture</div>
+                    <div style="display:flex; align-items:center; width:100%; justify-content:space-between; font-size:var(--small-size);">
+                        <div class="pipeline-node" style="padding:5px;">输入图矩阵<br>(Benign)</div>
+                        <div style="color:var(--accent-blue)">→</div>
+                        <div class="pipeline-node active" style="padding:5px;">GCN 层<br>编码压缩</div>
+                        <div style="color:var(--accent-blue)">→</div>
+                        <div class="circle-node" style="width:30px;height:30px;">Z</div>
+                        <div style="color:var(--accent-blue)">→</div>
+                        <div class="pipeline-node active" style="padding:5px;">内积解码<br>重构图</div>
+                    </div>
+                    <div style="margin-top: 15px; width: 80%; height: 2px; background: linear-gradient(90deg, #94a3b8, #ef4444); position:relative;">
+                        <div style="position:absolute; right:-20px; top:-8px; font-weight:bold; color:#ef4444;">Threshold!</div>
+                        <p style="position:absolute; top:5px; left:0; width:100%; text-align:center; font-size: 0.65rem;">重构误差评分标尺</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. 项目创新点 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">亮点凝练：项目三大核心学术创新</h2>
+            <div class="grid">
+                <div class="card highlight reveal">
+                    <h3>1. 空间视角降维拓展</h3>
+                    <p>提出了面向加密流分析的层次化建模。将长期以来的“孤立死板判断”飞升入“全局网络互联”拓扑视角，结构化处理复杂环境。</p>
+                </div>
+                <div class="card highlight reveal">
+                    <h3>2. 多关系约束生成机制</h3>
+                    <p>抛弃单一包传递边，创新考量源端、目标及局部同质性的“多关系联合图边”概念，深抓群体恶意聚集行动规迹。</p>
+                </div>
+                <div class="card highlight reveal">
+                    <h3>3. 实战化无监督架构全闭环</h3>
+                    <p>摆脱标签强依赖，从 PCAP 解析到底层抽特征，再到无监督 GAE 评分体系无缝集成，落地可工程部署的零日变种防线。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. 实验设计 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">实验设计：“双线并进”交叉验证策略</h2>
+            <p class="reveal" style="color: var(--text-secondary); margin-bottom: 20px;">使用严苛的数据集梯队客观论证模型在“绝对检测算力”与“实际工程对抗”中的下限。</p>
+            
+            <div class="two-cols" style="gap: 20px;">
+                <div class="card reveal">
+                    <h3 style="color:#0f172a; border-bottom:1px solid #cbd5e1; padding-bottom:5px;">主线 A：标准特征流验证</h3>
+                    <p><strong>测试点：</strong>算法底层剥离恶意识别的绝对能力。<br>
+                    <strong>数据集：</strong>CICIoT2023 Merged 合并标准数据。<br>
+                    <strong>环境：</strong>单纯使用良性样本构图作为 Benchmark 打底。</p>
+                </div>
+                
+                <div class="card reveal" style="border-top:3px solid var(--accent-blue);">
+                    <h3 style="color:var(--accent-blue); border-bottom:1px solid #cbd5e1; padding-bottom:5px;">主线 B：端到端图侧验证</h3>
+                    <p><strong>测试点：</strong>PCAP解析-流转换-构图-分类的整体工程健壮性。<br>
+                    <strong>数据集：</strong>CTU-13 高噪声极恶劣实战抓包集。<br>
+                    <strong>环境：</strong>富含海量乱序包干扰的真实抓包。场景 48/49/52 等。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. 实验结果与分析 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">实验结果：方法有效 · 链路可行</h2>
+            <div class="two-cols">
+                <div class="card highlight reveal">
+                    <h3>CICIoT2023 高准度展现</h3>
+                    <div style="font-size: 3rem; font-weight: 700; color: var(--accent-blue); margin: 10px 0;">0.9876</div>
+                    <p style="font-weight:bold; color:var(--text-primary); margin-bottom:5px;">主实验 F1 Score</p>
+                    <p style="font-size: var(--small-size);">依托标准流量特征输入，在无监督纯正常基地下，我们展现出了令人振奋的极端分隔判别精准度。</p>
+                </div>
+                
+                <div class="card reveal">
+                    <h3>CTU-13 噪信抵抗体现</h3>
+                    <div style="font-size: 3rem; font-weight: 700; color: #0f172a; margin: 10px 0;">0.9412</div>
+                    <p style="font-weight:bold; color:var(--text-primary); margin-bottom:5px;">场景 48/49/52 合并 F1</p>
+                    <p style="font-size: var(--small-size);">面对未脱水处理的大量乱序底层杂波侵袭，从抓包到输出的整条自动化提取图谱链路经受住了极高的实战考验。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. 项目不足与原因分析 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">阶段反审：客观认知的局限性</h2>
+            <div class="grid">
+                <div class="card reveal" style="border-color:#ef4444; border-left:4px solid #ef4444;">
+                    <h3 style="color:#ef4444;">1. 底层噪点极易诱发误报</h3>
+                    <p>在 CTU-13 实验中，大量散落、无意义的 Background 边缘节点在建图强连接时容易形成畸形连片，被模型误认为是高聚类的异常活动，提升了 <strong>False Positive (假阳性误报)</strong>。</p>
+                </div>
+                <div class="card reveal" style="border-left:4px solid #f59e0b;">
+                    <h3 style="color:#d97706;">2. 时空静态划分缺乏灵活性</h3>
+                    <p>当前依赖固定窗口切割，图切分颗粒度稍显生硬。真实攻击具有“蛰伏—扫描集结—猛攻—散去”的动态周期波幅，静态快照容易割裂长线拓扑特征。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. 未来展望 -->
+    <section class="slide">
+        <div class="slide-content">
+            <h2 class="reveal">演进展望：项目可探索的衍生路线</h2>
+            <div class="three-cols">
+                <div class="card reveal" style="border-top:2px solid var(--accent-blue);">
+                    <h3>引入噪音感知器</h3>
+                    <p style="font-size:var(--small-size);">开发 Nuisance-aware 模块，在进图前强力过滤协议底层纯无效干涉背景波，剥离虚假聚类。</p>
+                </div>
+                <div class="card highlight reveal">
+                    <h3>动态时序演化网络</h3>
+                    <p style="font-size:var(--small-size);">向 Dynamic Graph (动态自时序图)进军，令图具备随时间流逝和攻击频度缩放拉宽的窗口适应学习。</p>
+                </div>
+                <div class="card reveal" style="border-top:2px solid var(--accent-blue);">
+                    <h3>多判据混合部署</h3>
+                    <p style="font-size:var(--small-size);">结合单条流的置信兜底和多节点证据链的 Two-stage 图验证，部署于企业边界做复杂环境融合。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. 总结页 -->
+    <section class="slide title-slide" style="text-align: center; justify-content: center;">
+        <div class="slide-content">
+            <h1 class="reveal" style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 20px;">结项陈词：理论立住 · 链路搞通</h1>
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 12px; max-width: 800px; margin: 0 auto;" class="reveal">
+                <p style="font-size: var(--h3-size); font-weight: 500; line-height: 1.6; color: #f8fafc;">
+                    本次项目中，我们不仅在理论层面上验证了“脱离载荷重塑隐式关系”在抵御未知恶意流量的极大学术潜力，且通过底层端到端的两套实录测试证明了方案链路的闭环工程能力。
+                </p>
+                <div style="margin-top: 30px; color: var(--accent-light-blue); font-weight: bold; font-size: var(--h3-size);">
+                    这是一次完整且落地的可行方法论升华。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15. 致谢页 -->
+    <section class="slide" style="background: var(--bg-dark-blue); color: white; display: flex; align-items: center;">
+        <div class="slide-content" style="text-align: center;">
+            <h1 class="reveal" style="font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 10px; color:white;">Q & A</h1>
+            <p class="subtitle reveal" style="color: #cbd5e1; letter-spacing: 2px;">感谢各位专家评委聆听与批评指正！</p>
+            <div class="reveal" style="margin-top: 4rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 2rem; display: inline-block;">
+                <p style="color: #94a3b8; font-size: var(--small-size); margin-bottom: 5px;">汇报人：刘嘉成  |  团队成员：刘嘉成、陈恒宇、肖禹同</p>
+                <p style="color: #94a3b8; font-size: var(--small-size);">诚挚致谢指导教师：靖旭阳 副教授</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.progressBar = document.querySelector('.progress-bar');
+                this.navDotsContainer = document.querySelector('.nav-dots');
+                this.currentSlide = 0;
+                
+                this.setupObserver();
+                this.setupNav();
+                this.setupNavDots();
+            }
+            setupObserver() {
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('visible');
+                            this.currentSlide = Array.from(this.slides).indexOf(e.target);
+                            this.updateProgress();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                this.slides.forEach(s => obs.observe(s));
+            }
+            setupNav() {
+                document.addEventListener('keydown', e => {
+                    let current = this.currentSlide;
+                    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key) && current < this.slides.length - 1) {
+                        e.preventDefault();
+                        this.slides[current + 1].scrollIntoView({behavior: 'smooth'});
+                    } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key) && current > 0) {
+                        e.preventDefault();
+                        this.slides[current - 1].scrollIntoView({behavior: 'smooth'});
+                    }
+                });
+            }
+            setupNavDots() {
+                this.navDotsContainer.innerHTML = '';
+                this.slides.forEach((_, idx) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    dot.addEventListener('click', () => {
+                        this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    this.navDotsContainer.appendChild(dot);
+                });
+                this.updateProgress();
+            }
+            updateProgress() {
+                if(this.slides.length <= 1) return;
+                this.progressBar.style.width = `${(this.currentSlide / (this.slides.length - 1)) * 100}%`;
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === this.currentSlide);
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+    </script>
+</body>
+</html>

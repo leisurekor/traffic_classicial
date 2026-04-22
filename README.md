@@ -60,6 +60,16 @@ python3 -m unittest tests.test_repro_experiment -v
 pip install -e .[gae]
 ```
 
+当前仓库状态下，下面这些检查已经在本地验证通过：
+
+```bash
+python3 -m compileall src tests scripts
+python3 -m unittest tests.test_repro_experiment -v
+python3 scripts/run_csv_experiment.py --help
+python3 scripts/run_pcap_experiment.py --help
+python3 scripts/download_ctu13.py --help
+```
+
 ## 1. 从哪里开始看
 
 如果你是第一次看这个项目，建议按下面顺序阅读：
@@ -157,6 +167,14 @@ pip install -e .[gae]
 python3 -m compileall src tests scripts
 python3 -m unittest tests.test_ctu13_pipeline -v
 python3 -m unittest tests.test_repro_experiment -v
+```
+
+如果你只是想先确认“仓库当前能不能正常运行最小入口”，推荐按下面顺序检查：
+
+```bash
+python3 scripts/run_csv_experiment.py --help
+python3 scripts/run_pcap_experiment.py --help
+python3 scripts/download_ctu13.py --help
 ```
 
 ## 5. 数据集准备
@@ -323,6 +341,21 @@ python3 scripts/run_repro_dataset_suite.py
 
 但这条线会尝试汇总更多数据源与实验组合，开销更大。当前正式报告并不依赖它全部跑完。
 
+### 6.5 入口选择建议
+
+如果你是第一次复现，推荐不要一上来就跑所有脚本。更稳妥的顺序是：
+
+1. 先运行 `tests.test_repro_experiment`
+2. 再跑 `CSV` 主线
+3. 然后跑 `CTU13` 下载和 benchmark
+4. 最后再考虑 `run_repro_dataset_suite.py`
+
+推荐原因：
+
+- `CSV` 主线对数据准备要求最低
+- `CTU13` 虽然更贴近图主线，但前置数据准备更多
+- `run_repro_dataset_suite.py` 会尝试更多组合，适合作为汇总入口，不适合作为第一次上手入口
+
 ## 7. 输出文件怎么看
 
 ### 7.1 轻量输出
@@ -454,7 +487,30 @@ python3 -m unittest tests.test_ctu13_pipeline -v
 python3 -m unittest tests.test_repro_experiment -v
 ```
 
-## 12. 说明
+最小帮助检查：
+
+```bash
+python3 scripts/run_csv_experiment.py --help
+python3 scripts/run_pcap_experiment.py --help
+python3 scripts/download_ctu13.py --help
+```
+
+## 12. 故障排查
+
+如果克隆后命令能启动，但实验跑不起来，最常见原因通常是：
+
+- 还没有准备 `data/` 或 `artifacts/` 下的原始输入文件
+- `CSV` 配置中的 `input_path` 不存在
+- `PCAP` 配置中的 `benign_inputs` / `malicious_inputs` 还没填
+- 没有安装 `.[gae]`，但你运行了依赖图模型的路径
+
+如果你想先验证“代码入口本身没坏”，优先使用：
+
+- `python3 scripts/run_csv_experiment.py --help`
+- `python3 scripts/run_pcap_experiment.py --help`
+- `python3 -m unittest tests.test_repro_experiment -v`
+
+## 13. 说明
 
 如果你在另一台机器上克隆后发现某个实验“配置在、代码也在，但数据文件不在”，这通常不是仓库缺文件，而是因为：
 

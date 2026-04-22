@@ -358,16 +358,51 @@ def _plot_confusion_matrix(frame: pd.DataFrame, output_path: Path, *, title: str
     plt.close(figure)
 
 
+def _curve_note(y_true: np.ndarray) -> str:
+    positives = int(np.sum(y_true == 1))
+    negatives = int(np.sum(y_true == 0))
+    total = max(len(y_true), 1)
+    prevalence = positives / total
+    return f"AUC-ready set\npos={positives:,}  neg={negatives:,}\npos rate={prevalence:.4f}"
+
+
+def _style_curve_axis(axis: plt.Axes) -> None:
+    axis.set_facecolor("#fbfcfe")
+    axis.grid(True, color="#d9e2f2", linewidth=0.8, alpha=0.8)
+    for spine in axis.spines.values():
+        spine.set_color("#c7d2e3")
+
+
 def _plot_roc_curve(frame: pd.DataFrame, output_path: Path, *, title: str) -> None:
     y_true = pd.to_numeric(frame["binary_label"], errors="coerce").fillna(0).astype(int).to_numpy()
     scores = pd.to_numeric(frame["anomaly_score"], errors="coerce").fillna(0.0).astype(float).to_numpy()
-    figure, axis = plt.subplots(figsize=(5.0, 4.0))
+    figure, axis = plt.subplots(figsize=(7.2, 5.0))
+    _style_curve_axis(axis)
     if len(np.unique(y_true)) >= 2:
         fpr, tpr, _thresholds = roc_curve(y_true, scores)
         roc_auc = roc_auc_score(y_true, scores)
-        axis.plot(fpr, tpr, label=f"AUC={roc_auc:.4f}", color="#3478f6")
-        axis.plot([0, 1], [0, 1], linestyle="--", color="#888888")
-        axis.legend(loc="lower right")
+        axis.step(fpr, tpr, where="post", label=f"ROC (AUC={roc_auc:.4f})", color="#2563eb", linewidth=2.4)
+        axis.fill_between(fpr, tpr, step="post", alpha=0.12, color="#60a5fa")
+        axis.plot([0, 1], [0, 1], linestyle="--", color="#94a3b8", linewidth=1.2, label="random baseline")
+        axis.legend(loc="lower right", frameon=True)
+        axis.text(
+            0.60,
+            0.16,
+            _curve_note(y_true),
+            transform=axis.transAxes,
+            fontsize=9,
+            bbox={"boxstyle": "round,pad=0.35", "facecolor": "white", "edgecolor": "#cbd5e1", "alpha": 0.95},
+        )
+        inset = axis.inset_axes([0.44, 0.44, 0.5, 0.42])
+        _style_curve_axis(inset)
+        inset.step(fpr, tpr, where="post", color="#2563eb", linewidth=1.6)
+        inset.plot([0, 1], [0, 1], linestyle="--", color="#94a3b8", linewidth=0.9)
+        inset.set_xlim(0.0, 0.10)
+        inset.set_ylim(0.90, 1.01)
+        inset.set_xticks([0.00, 0.05, 0.10])
+        inset.set_yticks([0.90, 0.95, 1.00])
+        inset.set_title("Zoom: low FPR", fontsize=8)
+        inset.tick_params(labelsize=7)
     else:
         axis.text(0.5, 0.5, "ROC unavailable\n(single class)", ha="center", va="center")
     axis.set_xlim(0.0, 1.0)
@@ -383,12 +418,36 @@ def _plot_roc_curve(frame: pd.DataFrame, output_path: Path, *, title: str) -> No
 def _plot_pr_curve(frame: pd.DataFrame, output_path: Path, *, title: str) -> None:
     y_true = pd.to_numeric(frame["binary_label"], errors="coerce").fillna(0).astype(int).to_numpy()
     scores = pd.to_numeric(frame["anomaly_score"], errors="coerce").fillna(0.0).astype(float).to_numpy()
-    figure, axis = plt.subplots(figsize=(5.0, 4.0))
+    figure, axis = plt.subplots(figsize=(7.2, 5.0))
+    _style_curve_axis(axis)
     if len(np.unique(y_true)) >= 2:
         precision, recall, _thresholds = precision_recall_curve(y_true, scores)
         pr_auc = average_precision_score(y_true, scores)
-        axis.plot(recall, precision, label=f"AP={pr_auc:.4f}", color="#2eb872")
-        axis.legend(loc="lower left")
+        prevalence = float(np.mean(y_true == 1))
+        recall = recall[::-1]
+        precision = precision[::-1]
+        axis.step(recall, precision, where="post", label=f"PR (AP={pr_auc:.4f})", color="#059669", linewidth=2.4)
+        axis.fill_between(recall, precision, prevalence, step="post", alpha=0.12, color="#34d399")
+        axis.axhline(prevalence, linestyle="--", color="#94a3b8", linewidth=1.2, label=f"positive-rate baseline ({prevalence:.4f})")
+        axis.legend(loc="lower left", frameon=True)
+        axis.text(
+            0.05,
+            0.12,
+            _curve_note(y_true),
+            transform=axis.transAxes,
+            fontsize=9,
+            bbox={"boxstyle": "round,pad=0.35", "facecolor": "white", "edgecolor": "#cbd5e1", "alpha": 0.95},
+        )
+        inset = axis.inset_axes([0.43, 0.16, 0.52, 0.34])
+        _style_curve_axis(inset)
+        inset.step(recall, precision, where="post", color="#059669", linewidth=1.6)
+        inset.axhline(prevalence, linestyle="--", color="#94a3b8", linewidth=0.9)
+        inset.set_xlim(0.90, 1.00)
+        inset.set_ylim(max(0.97, prevalence - 0.01), 1.001)
+        inset.set_xticks([0.90, 0.95, 1.00])
+        inset.set_yticks([round(max(0.97, prevalence - 0.01), 2), 0.99, 1.00])
+        inset.set_title("Zoom: high recall", fontsize=8)
+        inset.tick_params(labelsize=7)
     else:
         axis.text(0.5, 0.5, "PR unavailable\n(single class)", ha="center", va="center")
     axis.set_xlim(0.0, 1.0)

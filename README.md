@@ -125,6 +125,13 @@ python3 -m unittest tests.test_repro_experiment -v
 
 ## 5. 数据集准备
 
+当前项目当前正式主线涉及的核心数据集官方入口如下：
+
+- `CICIoT2023`
+  - `https://www.unb.ca/cic/datasets/iotdataset-2023.html`
+- `CTU-13`
+  - `https://www.stratosphereips.org/datasets-ctu13`
+
 ### 5.1 CICIoT2023
 
 当前仓库里稳定使用过的 CSV 主结果来自：

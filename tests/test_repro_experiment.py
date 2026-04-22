@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -107,3 +108,76 @@ class ReproExperimentTests(TestCase):
             self.assertTrue(Path(result["figure_path"]).exists())
             self.assertTrue(Path(result["log_path"]).exists())
             self.assertTrue((Path(config.output_dir) / "checkpoints").exists())
+
+    def test_csv_wrapper_script_reports_missing_input_helpfully(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            config_path = Path(temp_dir) / "missing-input.yaml"
+            config_path.write_text(
+                "\n".join(
+                    [
+                        "dataset_name: csv-missing",
+                        "input_mode: csv",
+                        "input_path: artifacts/does-not-exist.csv",
+                        "label_column: Label",
+                        "binary_label_mapping:",
+                        "  BENIGN: 0",
+                        "",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            completed = subprocess.run(
+                [sys.executable, "scripts/run_csv_experiment.py", "--config", str(config_path)],
+                cwd=ROOT_DIR,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn("CSV input file was not found", completed.stderr)
+            self.assertIn("Merged01.csv", completed.stderr)
+
+    def test_pcap_wrapper_script_reports_missing_inputs_helpfully(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            config_path = Path(temp_dir) / "missing-pcap.yaml"
+            config_path.write_text(
+                "\n".join(
+                    [
+                        "dataset_name: pcap-missing",
+                        "input_mode: pcap",
+                        "benign_inputs:",
+                        "  - artifacts/missing-benign.pcap",
+                        "malicious_inputs:",
+                        "  - artifacts/missing-malicious.pcap",
+                        "",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            completed = subprocess.run(
+                [sys.executable, "scripts/run_pcap_experiment.py", "--config", str(config_path)],
+                cwd=ROOT_DIR,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn("One or more PCAP inputs were not found", completed.stderr)
+            self.assertIn("download_ctu13.py --scenarios 48 49 52", completed.stderr)
+
+    def test_quickstart_smoke_script_generates_sample_files(self) -> None:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "scripts/run_quickstart_smoke.py",
+                "--skip-csv-run",
+                "--skip-tests",
+            ],
+            cwd=ROOT_DIR,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, msg=completed.stderr)
+        self.assertTrue((ROOT_DIR / "artifacts" / "quickstart" / "quickstart_flows.csv").exists())
+        self.assertTrue((ROOT_DIR / "artifacts" / "quickstart" / "quickstart_csv.yaml").exists())

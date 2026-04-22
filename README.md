@@ -54,6 +54,19 @@ python3 -m compileall src tests scripts
 python3 -m unittest tests.test_repro_experiment -v
 ```
 
+如果你想在**不准备大体量真实数据**的情况下先跑通一个最小示例，可以直接执行：
+
+```bash
+python3 scripts/run_quickstart_smoke.py
+```
+
+这个脚本会：
+
+- 生成一个很小的本地 CSV 样例
+- 生成对应的 quickstart 配置文件
+- 跑一次最小 CSV smoke
+- 顺带跑 `tests.test_repro_experiment`
+
 如果你需要图模型或 CTU13 图侧 benchmark，推荐额外安装：
 
 ```bash
@@ -68,6 +81,7 @@ python3 -m unittest tests.test_repro_experiment -v
 python3 scripts/run_csv_experiment.py --help
 python3 scripts/run_pcap_experiment.py --help
 python3 scripts/download_ctu13.py --help
+python3 scripts/run_quickstart_smoke.py --skip-csv-run --skip-tests
 ```
 
 ## 1. 从哪里开始看
@@ -175,6 +189,7 @@ python3 -m unittest tests.test_repro_experiment -v
 python3 scripts/run_csv_experiment.py --help
 python3 scripts/run_pcap_experiment.py --help
 python3 scripts/download_ctu13.py --help
+python3 scripts/run_quickstart_smoke.py --help
 ```
 
 ## 5. 数据集准备
@@ -291,6 +306,12 @@ python3 scripts/run_csv_experiment.py \
 - `use_nuisance_aware: false`
 - `binary_label_mapping` 已预留
 
+如果你只是想先确认“仓库确实能跑起来”，不必先下载大数据，可以直接运行：
+
+```bash
+python3 scripts/run_quickstart_smoke.py
+```
+
 ### 6.2 PCAP 可复现实验
 
 最简单的入口：
@@ -313,6 +334,14 @@ python3 scripts/run_pcap_experiment.py \
 - `input_mode: pcap`
 - `use_nuisance_aware: false`
 - 以轻量 `packet_limit` 做可运行性验证
+
+当前 `run_pcap_experiment.py` 会在启动前先检查：
+
+- 配置文件是否存在
+- `benign_inputs` / `malicious_inputs` 是否为空
+- 配置里引用的 PCAP 文件是否真的存在
+
+如果这些条件不满足，脚本会优先给出更明确的提示。
 
 ### 6.3 CTU13 图侧 benchmark
 
@@ -493,6 +522,7 @@ python3 -m unittest tests.test_repro_experiment -v
 python3 scripts/run_csv_experiment.py --help
 python3 scripts/run_pcap_experiment.py --help
 python3 scripts/download_ctu13.py --help
+python3 scripts/run_quickstart_smoke.py --help
 ```
 
 ## 12. 故障排查
@@ -508,6 +538,7 @@ python3 scripts/download_ctu13.py --help
 
 - `python3 scripts/run_csv_experiment.py --help`
 - `python3 scripts/run_pcap_experiment.py --help`
+- `python3 scripts/run_quickstart_smoke.py`
 - `python3 -m unittest tests.test_repro_experiment -v`
 
 ## 13. 说明

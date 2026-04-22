@@ -24,6 +24,42 @@
 
 因此，别的机器克隆仓库后可以直接阅读代码、结果和报告；如果要重新跑实验，需要自行准备数据集。
 
+## 0. GitHub 使用说明
+
+如果你是从 GitHub 网页直接进入这个仓库，建议先了解这几点：
+
+- 当前仓库已经包含：
+  - 可运行代码
+  - 关键结果汇总
+  - 关键日志
+  - 最终实验报告
+- 当前仓库**不包含**超大原始数据和超大中间产物：
+  - `data/`
+  - `artifacts/`
+  - `outputs/runs/`
+- 因此：
+  - 想看项目结论：直接阅读 `reports/`、`results/`、`outputs/summary/`
+  - 想复现实验：先按下面的数据集地址准备输入文件，再运行脚本
+
+一个最小可用流程如下：
+
+```bash
+git clone https://github.com/leisurekor/traffic_classicial.git
+cd traffic_classicial
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -U pip
+pip install -e .
+python3 -m compileall src tests scripts
+python3 -m unittest tests.test_repro_experiment -v
+```
+
+如果你需要图模型或 CTU13 图侧 benchmark，推荐额外安装：
+
+```bash
+pip install -e .[gae]
+```
+
 ## 1. 从哪里开始看
 
 如果你是第一次看这个项目，建议按下面顺序阅读：
@@ -127,10 +163,16 @@ python3 -m unittest tests.test_repro_experiment -v
 
 当前项目当前正式主线涉及的核心数据集官方入口如下：
 
-- `CICIoT2023`
-  - `https://www.unb.ca/cic/datasets/iotdataset-2023.html`
-- `CTU-13`
-  - `https://www.stratosphereips.org/datasets-ctu13`
+| 数据集 | 当前仓库中的角色 | 官方地址 |
+| --- | --- | --- |
+| `CICIoT2023` | 当前正式 `CSV` 主结果来源 | `https://www.unb.ca/cic/datasets/iotdataset-2023.html` |
+| `CTU-13` | 当前正式 `PCAP-based graph benchmark` 来源 | `https://www.stratosphereips.org/datasets-ctu13` |
+| `CICIDS2017` | 代码支持，但当前未形成正式主结果 | `https://www.unb.ca/cic/datasets/ids-2017.html` |
+
+建议优先准备前两个数据集：
+
+1. `CICIoT2023`
+2. `CTU-13`
 
 ### 5.1 CICIoT2023
 
@@ -152,6 +194,12 @@ python3 -m unittest tests.test_repro_experiment -v
 官方来源可参考：
 
 - `https://www.unb.ca/cic/datasets/iotdataset-2023.html`
+
+GitHub 使用建议：
+
+- 如果你只是想复现当前正式 `CSV` 主结果，优先准备这个数据集即可
+- 最关键的输入文件是带 `Label` 列的 `Merged01.csv`
+- 建议路径保持为 `artifacts/cic_iot2023/Merged01.csv`
 
 ### 5.2 CICIDS2017
 
@@ -185,6 +233,12 @@ python3 scripts/download_ctu13.py --scenarios 48 49 52
 
 - `https://www.stratosphereips.org/datasets-ctu13`
 
+GitHub 使用建议：
+
+- 如果你想复查当前正式图侧主 benchmark，优先准备 `48 / 49 / 52`
+- 可以直接使用仓库里的下载脚本拉取官方场景文件
+- 下载后重点检查 `data/ctu13/raw/` 与 `data/ctu13/ctu13_manifest.json`
+
 注意：
 
 - 当前仓库中最稳定、最正式的 CTU13 结果是图侧 benchmark
@@ -198,6 +252,8 @@ python3 scripts/download_ctu13.py --scenarios 48 49 52
 最简单的入口：
 
 ```bash
+mkdir -p artifacts/cic_iot2023
+# 把官方 Merged01.csv 放到 artifacts/cic_iot2023/Merged01.csv
 python3 scripts/run_csv_experiment.py \
   --config configs/repro_csv.example.yaml
 ```
@@ -222,6 +278,7 @@ python3 scripts/run_csv_experiment.py \
 最简单的入口：
 
 ```bash
+# 先在 configs/repro_pcap.example.yaml 里填写 benign_inputs / malicious_inputs
 python3 scripts/run_pcap_experiment.py \
   --config configs/repro_pcap.example.yaml
 ```
@@ -244,6 +301,7 @@ python3 scripts/run_pcap_experiment.py \
 如果你要复查或重跑当前图侧主 benchmark，重点脚本是：
 
 ```bash
+python3 scripts/download_ctu13.py --scenarios 48 49 52
 python3 scripts/run_ctu13_binary_benchmark.py
 python3 scripts/run_ctu13_edge_centric_comparison.py
 ```
@@ -278,6 +336,14 @@ python3 scripts/run_repro_dataset_suite.py
 - `outputs/data_inventory/`
 - `results/`
 - `reports/`
+
+也就是说，从 GitHub 克隆后，下面这些内容通常是开箱即读的：
+
+- 正式报告
+- 轻量指标汇总
+- 已导出的 PNG 图
+- CTU13 benchmark 表
+- 测试代码与主要实验脚本
 
 ### 7.2 大体量中间输出
 
@@ -399,3 +465,10 @@ python3 -m unittest tests.test_repro_experiment -v
 
 1. 阅读和复核现有正式结果
 2. 在自行准备好数据后复现实验流程
+
+如果你的目标是让 GitHub 上的仓库尽量“完整可用”，当前最推荐的使用路径是：
+
+1. 先按 README 准备 `CICIoT2023` 或 `CTU-13`
+2. 先运行 `tests.test_repro_experiment` 做环境自检
+3. 再跑 `CSV` 或 `CTU13` 主线脚本
+4. 最后对照 `outputs/summary/`、`results/` 和 `reports/` 检查输出是否一致
